@@ -36,3 +36,10 @@ The landing page follows the supplied BIOPHLO reference composition and content 
 ## Frontend-only behavior
 
 Forms, editing actions, filters, notifications, course progress, preferences, and administrative workflows behave locally. Persistence uses `localStorage` where retaining state improves the demonstration. Payment, email, account authentication, file upload, and publishing actions are intentionally simulated in the browser because this repository contains no backend.
+
+## Authors
+
+Developed by the **BIOPHLO Project Development Team**:
+
+- **Mohammad Abo Al Ghozlan**
+- **Somaya Al Minawi**
