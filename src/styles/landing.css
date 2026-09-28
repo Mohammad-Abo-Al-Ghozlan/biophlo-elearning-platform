@@ -51,7 +51,7 @@
   z-index: 40;
   height: 84px;
   border-bottom: 1px solid rgba(8, 84, 104, 0.06);
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.96);
 }
 
 .bio-home .header-inner {
@@ -156,10 +156,13 @@
   color: var(--bio-navy);
   font-size: 14px;
   font-weight: 750;
-  line-height: 1;
+  line-height: normal;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 240ms ease,
+    border-color 240ms ease;
 }
 
 .bio-home .button:hover {
@@ -168,12 +171,10 @@
 
 .bio-home .button-primary {
   background: linear-gradient(135deg, #ffbb43, #f7a31d);
-  box-shadow: 0 10px 24px rgba(247, 163, 29, 0.28);
 }
 
 .bio-home .button-primary:hover {
-  background: linear-gradient(135deg, #ffc45a, #f6a018);
-  box-shadow: 0 13px 28px rgba(247, 163, 29, 0.34);
+  background: linear-gradient(135deg, #ffbb43, #f7a31d);
 }
 
 .bio-home .button-outline {
@@ -183,7 +184,7 @@
 }
 
 .bio-home .button-outline:hover {
-  background: #f1fbfb;
+  background: #fff;
 }
 
 .bio-home .button-compact {
@@ -336,7 +337,7 @@
 .bio-home .benefits {
   position: relative;
   z-index: 3;
-  padding: 0 0 42px;
+  padding: 36px 0 42px;
 }
 
 .bio-home .benefit-grid {
@@ -662,7 +663,20 @@
 }
 
 .bio-home .about-copy h2 span {
-  color: #0b9b9d;
+  position: relative;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.bio-home .about-copy h2 span::after {
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+  left: 0;
+  height: 4px;
+  border-radius: 99px;
+  background: #f3ad34;
+  content: "";
 }
 
 .bio-home .about-intro {
@@ -702,11 +716,15 @@
 
 .bio-home .molecule-decoration {
   position: absolute;
-  right: -35px;
-  bottom: -34px;
-  width: 180px;
-  height: 200px;
-  opacity: 0.13;
+  z-index: 1;
+  right: -20px;
+  bottom: -62px;
+  width: 210px;
+  height: auto;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .bio-home .molecule-decoration::before,
@@ -990,7 +1008,7 @@
   top: 16px;
   left: 16px;
   border-radius: 999px;
-  background: rgba(7, 59, 89, 0.9);
+  background: rgba(7, 59, 89, 0.88);
   padding: 8px 12px;
   color: #fff;
   font-size: 12px;
@@ -1598,8 +1616,8 @@
   .bio-home .mobile-nav {
     position: absolute;
     top: 76px;
-    left: 0;
-    right: 0;
+    left: 18px;
+    right: 18px;
     display: grid;
     gap: 4px;
     border: 1px solid #dcebed;
@@ -1653,11 +1671,10 @@
   .bio-home .footer-subscribe { grid-column: 1 / -1; max-width: 520px; }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 560px) {
   .bio-home .container { width: min(100% - 28px, 480px); }
   .bio-home .site-header { height: 72px; }
   .bio-home .brand-logo { width: 128px; }
-  .bio-home .mobile-nav { top: 66px; }
   .bio-home .hero-inner { padding-top: 36px; gap: 10px; }
   .bio-home .hero h1 { font-size: clamp(2.7rem, 13vw, 3.65rem); }
   .bio-home .hero-copy { margin-block: 19px 22px; font-size: 16px; }
@@ -1764,27 +1781,6 @@
   .bio-home .dialog-copy { padding: 28px 24px 30px; }
 }
 
-@media (max-width: 390px) {
-  .bio-home .container { width: min(100% - 22px, 360px); }
-  .bio-home .hero h1 { font-size: 2.65rem; }
-  .bio-home .eyebrow { font-size: 11px; letter-spacing: 0.22em; }
-  .bio-home .hero-actions .button { flex-basis: 100%; }
-  .bio-home .hero-visual { min-height: 340px; }
-  .bio-home .hero-visual img { height: 365px; }
-  .bio-home .benefit-card { grid-template-columns: 48px 1fr; gap: 12px; padding: 17px; }
-  .bio-home .benefit-icon { width: 46px; height: 46px; }
-  .bio-home .benefit-icon svg { width: 27px; }
-  .bio-home .journey-step { grid-template-columns: 68px 1fr; gap: 12px; }
-  .bio-home .journey-line,
-  .bio-home .journey-node { left: 34px; }
-  .bio-home .journey-number { width: 62px; height: 72px; }
-  .bio-home .footer-grid { grid-template-columns: 1fr; }
-  .bio-home .footer-brand,
-  .bio-home .footer-subscribe { grid-column: auto; }
-  .bio-home .footer-bottom { flex-direction: column; }
-  .bio-home .footer-bottom span:last-child { text-align: left; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .bio-home *,
   .bio-home *::before,
@@ -1799,4 +1795,451 @@
     opacity: 1;
     transform: none;
   }
+}
+
+/* Reference landing-page refresh. Kept under .bio-home so other routes are unaffected. */
+.bio-home {
+  --brand-deep: #087f8c;
+  --brand-teal: #0ba4a5;
+  --brand-aqua: #27bbb7;
+  --brand-gold: #ffad2e;
+}
+
+.bio-home .button-login {
+  border-color: var(--brand-teal);
+  background: var(--brand-teal);
+  color: #fff;
+}
+
+.bio-home .button-primary {
+  color: #fff;
+}
+
+.bio-home .header-actions .button-primary {
+  box-shadow: none;
+}
+
+.bio-home .hero {
+  min-height: 610px;
+  background:
+    linear-gradient(90deg, rgba(2, 78, 92, 0.7) 0%, rgba(3, 99, 112, 0.42) 34%, rgba(0, 66, 81, 0.08) 58%, rgba(0, 66, 81, 0) 74%),
+    url("/assets/banner.jpeg") center / cover no-repeat;
+}
+
+.bio-home .hero-inner {
+  display: flex;
+  min-height: 610px;
+  align-items: center;
+}
+
+.bio-home .hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(590px, 58%);
+}
+
+.bio-home .hero .eyebrow,
+.bio-home .hero .hero-copy,
+.bio-home .hero .learner-row {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.bio-home .hero h1 {
+  color: #fff;
+  text-shadow: 0 3px 18px rgba(0, 45, 58, 0.2);
+}
+
+.bio-home .hero-actions .button-outline {
+  border-color: #fff;
+  color: var(--brand-deep);
+}
+
+.bio-home .benefit-card,
+.bio-home .benefit-card.featured {
+  border-color: rgba(9, 93, 111, 0.08);
+  background: #fff;
+  color: var(--brand-deep);
+}
+
+.bio-home .benefit-card .benefit-icon,
+.bio-home .benefit-card.featured .benefit-icon {
+  background: linear-gradient(145deg, var(--brand-aqua), var(--brand-deep));
+  color: #fff;
+}
+
+.bio-home .benefit-card p,
+.bio-home .benefit-card.featured p {
+  color: #527080;
+}
+
+.bio-home .section-heading h2,
+.bio-home .courses-heading h2,
+.bio-home .lesson-heading,
+.bio-home .journey-copy h3,
+.bio-home .course-card h3,
+.bio-home .quiz-panel h3 {
+  color: var(--brand-deep);
+}
+
+.bio-home .mini-label,
+.bio-home .eyebrow,
+.bio-home .courses-heading .text-link {
+  color: var(--brand-aqua);
+}
+
+.bio-home .journey-media {
+  width: 166px;
+  height: 145px;
+}
+
+.bio-home .journey-number {
+  width: 78px;
+  height: 68px;
+  background: var(--brand-teal);
+  clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
+}
+
+.bio-home .journey-step:nth-of-type(even) .journey-number {
+  background: var(--brand-teal);
+}
+
+.bio-home .journey-node {
+  width: 27px;
+  height: 24px;
+  background: var(--brand-aqua);
+}
+
+.bio-home .better-way-section {
+  position: relative;
+  overflow: hidden;
+  background: #087f8c;
+}
+
+.bio-home .better-way-section::before,
+.bio-home .better-way-section::after {
+  position: absolute;
+  width: 72px;
+  height: 64px;
+  border: 3px solid rgba(39, 187, 183, 0.13);
+  clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
+  content: "";
+}
+
+.bio-home .better-way-section::before { top: 56px; left: 22px; }
+.bio-home .better-way-section::after { right: 28px; bottom: 44px; }
+
+.bio-home .better-way-heading {
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.bio-home .better-way-heading .mini-label { color: #d6f5f2; }
+
+.bio-home .better-way-heading h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.2rem, 3.5vw, 3.15rem);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.bio-home .better-way-grid {
+  display: grid;
+  grid-template-columns: minmax(285px, 1fr) minmax(480px, 1.55fr) minmax(285px, 1fr);
+  align-items: center;
+  gap: 22px;
+}
+
+.bio-home .better-way-card {
+  position: relative;
+  display: grid;
+  min-height: 164px;
+  grid-template-columns: 66px minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(8, 127, 140, 0.1);
+  border-radius: 8px;
+  background: #fff;
+  padding: 26px 24px;
+  box-shadow: 0 14px 34px rgba(8, 83, 102, 0.08);
+  transform: scale(1);
+  transition: transform 260ms ease, box-shadow 260ms ease;
+}
+
+.bio-home .better-way-card-featured {
+  min-height: 194px;
+  grid-template-columns: 66px minmax(165px, 1fr) 190px;
+  padding-right: 0;
+}
+
+.bio-home .better-way-card:hover {
+  box-shadow: 0 8px 20px rgba(8, 83, 102, 0.06);
+  transform: scale(0.96);
+}
+
+.bio-home .better-way-icon {
+  display: grid;
+  width: 62px;
+  height: 62px;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--brand-aqua), var(--brand-deep));
+  color: #fff;
+}
+
+.bio-home .better-way-card h3 {
+  margin: 0 0 7px;
+  color: var(--brand-deep);
+  font-size: 17px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.bio-home .better-way-card p {
+  margin: 0;
+  color: #527180;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.bio-home .better-way-copy { position: relative; z-index: 2; }
+
+.bio-home .device-art {
+  position: relative;
+  align-self: stretch;
+  width: 190px;
+  min-width: 190px;
+  justify-self: end;
+  overflow: hidden;
+}
+
+.bio-home .device-art img {
+  position: absolute;
+  top: -149px;
+  left: -635px;
+  width: 1180px;
+  max-width: none;
+  opacity: 1;
+}
+
+.bio-home .molecule-decoration {
+  right: -20px;
+  bottom: -62px;
+  width: 210px;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.bio-home .stats-band { padding-block: 0; }
+
+.bio-home .stats-grid {
+  width: min(1160px, calc(100% - 48px));
+  gap: 0;
+}
+
+.bio-home .stat-item {
+  min-height: 142px;
+  border: 0;
+  background: linear-gradient(145deg, var(--brand-aqua), var(--brand-deep));
+  color: #fff;
+}
+
+.bio-home .stat-item:nth-child(even) {
+  background: #fff;
+  color: var(--brand-teal);
+}
+
+.bio-home .stat-item strong,
+.bio-home .stat-item span { color: inherit; }
+
+.bio-home .science-banner {
+  position: relative;
+  overflow: hidden;
+  margin-top: 76px;
+  background: var(--brand-deep);
+}
+
+.bio-home .science-banner::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(2, 78, 92, 0.58), rgba(2, 78, 92, 0.08) 58%, transparent 76%);
+  content: "";
+}
+
+.bio-home .science-banner > img {
+  display: block;
+  width: 100%;
+  max-height: 460px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.bio-home .science-banner-copy {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: max(24px, calc((100% - 1160px) / 2));
+  width: min(540px, 42vw);
+  color: #fff;
+  transform: translateY(-50%);
+}
+
+.bio-home .science-banner-copy p {
+  margin: 0 0 12px;
+  color: #8de3dd;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.bio-home .science-banner-copy h2 {
+  max-width: 520px;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2.25rem, 4.4vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.02;
+  text-shadow: 0 4px 22px rgba(0, 43, 53, 0.25);
+}
+
+.bio-home .cta-card {
+  min-height: 310px;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 0.72fr);
+  background: linear-gradient(110deg, #087f8c 0%, #0ba4a5 55%, #f6a928 100%);
+}
+
+.bio-home .cta-copy {
+  justify-items: start;
+  padding: 42px 56px;
+  text-align: left;
+}
+
+.bio-home .cta-instructor {
+  position: relative;
+  align-self: end;
+  justify-self: end;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-top: 6px solid rgba(255, 255, 255, 0.82);
+  border-left: 6px solid rgba(255, 255, 255, 0.82);
+  border-radius: 190px 0 0;
+  background: rgba(218, 247, 244, 0.24);
+}
+
+.bio-home .cta-instructor img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: drop-shadow(0 14px 24px rgba(0, 53, 64, 0.2));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bio-home .button:hover { transform: translateY(-4px) scale(1.025); }
+  .bio-home .button:hover > svg { transform: translateX(4px); }
+  .bio-home .button:hover .round-play { transform: scale(1.1); }
+  .bio-home .button-login:hover { background: #087f8c; }
+  .bio-home .button-outline:hover { border-color: var(--brand-deep); }
+}
+
+@media (max-width: 1100px) {
+  .bio-home .better-way-grid {
+    max-width: 720px;
+    grid-template-columns: 1fr;
+    margin-inline: auto;
+  }
+
+  .bio-home .better-way-card-featured {
+    grid-template-columns: 66px minmax(0, 1fr) 190px;
+  }
+}
+
+@media (max-width: 900px) {
+  .bio-home .hero-content { width: min(600px, 75%); }
+  .bio-home .hero-inner { min-height: auto; padding-block: 58px; }
+  .bio-home .benefits { padding-top: 28px; }
+  .bio-home .better-way-grid { max-width: 680px; }
+  .bio-home .molecule-decoration { right: -45px; bottom: -72px; width: 170px; opacity: 0.12; }
+  .bio-home .cta-card { grid-template-columns: minmax(0, 1fr) minmax(300px, 0.7fr); }
+  .bio-home .cta-copy { padding: 36px; }
+  .bio-home .cta-instructor { width: 100%; height: 285px; }
+}
+
+@media (max-width: 560px) {
+  .bio-home .hero {
+    min-height: 620px;
+    background:
+      linear-gradient(90deg, rgba(0, 67, 81, 0.7) 0%, rgba(0, 75, 89, 0.42) 58%, rgba(0, 66, 81, 0.08) 100%),
+      url("/assets/banner.jpeg") 61% center / cover no-repeat;
+  }
+  .bio-home .hero::before { content: none; }
+  .bio-home .hero-inner { min-height: 620px; padding-block: 42px; }
+  .bio-home .hero-content { width: 100%; }
+  .bio-home .hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+  }
+  .bio-home .hero-actions .button {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .bio-home .hero-actions .round-play { width: 25px; height: 25px; }
+  .bio-home .journey-media { width: min(165px, 68vw); height: 135px; }
+  .bio-home .journey-number { width: 64px; height: 56px; }
+  .bio-home .better-way-heading { margin-bottom: 26px; }
+  .bio-home .better-way-card { min-height: 128px; grid-template-columns: 56px minmax(0, 1fr); padding: 20px; }
+  .bio-home .better-way-icon { width: 54px; height: 54px; }
+  .bio-home .better-way-card h3 { font-size: 16px; }
+  .bio-home .better-way-card-featured {
+    min-height: 293px;
+    grid-template-columns: 56px minmax(0, 1fr);
+    grid-template-rows: auto 145px;
+    padding-right: 20px;
+  }
+  .bio-home .better-way-card-featured .device-art {
+    display: block;
+    width: 190px;
+    height: 145px;
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+  .bio-home .benefits { padding-top: 24px; }
+  .bio-home .molecule-decoration { right: -52px; bottom: -48px; width: 125px; opacity: 0.08; }
+  .bio-home .stats-grid { width: 100%; }
+  .bio-home .stat-item { min-height: 112px; }
+  .bio-home .science-banner { margin-top: 52px; }
+  .bio-home .science-banner > img { min-height: 230px; object-position: 67% center; }
+  .bio-home .science-banner-copy { left: 20px; width: 66%; }
+  .bio-home .science-banner-copy p { margin-bottom: 8px; font-size: 10px; }
+  .bio-home .science-banner-copy h2 { font-size: clamp(1.8rem, 9vw, 2.65rem); }
+  .bio-home .cta-card {
+    min-height: 330px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(130px, 0.85fr);
+    grid-template-rows: 1fr;
+    gap: 4px;
+    padding: 28px 12px 0 20px;
+  }
+  .bio-home .cta-copy { z-index: 2; align-self: center; padding: 0 0 24px; }
+  .bio-home .cta-copy h2 { font-size: clamp(1.55rem, 7vw, 2.15rem); }
+  .bio-home .cta-copy > span { font-size: 12px; line-height: 1.45; }
+  .bio-home .cta-copy .button { min-height: 42px; padding-inline: 13px; font-size: 11px; }
+  .bio-home .cta-instructor {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    height: 285px;
+    justify-self: end;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+  .bio-home .cta-instructor img { object-fit: contain; object-position: right bottom; }
 }

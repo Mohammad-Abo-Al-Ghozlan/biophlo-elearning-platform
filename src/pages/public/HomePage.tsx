@@ -9,8 +9,9 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   BookOpen,
+  BookOpenCheck,
+  CalendarClock,
   Check,
-  Dna,
   Globe2,
   GraduationCap,
   Laptop,
@@ -32,14 +33,14 @@ const benefits = [
   {
     title: "Flexible Learning",
     text: "Learn anytime, anywhere at your own pace.",
-    icon: Dna,
-    featured: true,
+    icon: CalendarClock,
+    featured: false,
   },
   {
     title: "Expert-Led Courses",
     text: "Real-world explanations and practical examples.",
     icon: GraduationCap,
-    featured: false,
+    featured: true,
   },
   {
     title: "Supportive Community",
@@ -55,38 +56,38 @@ const journey = [
     title: "Explore",
     text: "Discover the amazing world of living things.",
     image: "/assets/journey-leaf.webp",
-    alt: "A hand examining a green leaf",
-    side: "left",
+    alt: "A student examining a green leaf",
+    side: "right",
   },
   {
     number: "02",
     title: "Understand",
     text: "Make sense of how life works.",
     image: "/assets/journey-microscope.webp",
-    alt: "A student using a microscope",
-    side: "right",
+    alt: "Student using a microscope",
+    side: "left",
   },
   {
     number: "03",
     title: "Practise",
     text: "Build your skills step by step.",
     image: "/assets/journey-cell.webp",
-    alt: "A student drawing a plant cell",
-    side: "left",
+    alt: "Student drawing a plant cell",
+    side: "right",
   },
   {
     number: "04",
     title: "Progress",
     text: "Grow your confidence for what’s next.",
     image: "/assets/journey-student.webp",
-    alt: "A biology student reflecting outdoors",
-    side: "right",
+    alt: "Student reflecting outdoors",
+    side: "left",
   },
 ] as const;
 
 const stats = [
   { value: "10k+", label: "Students", icon: Users },
-  { value: "50+", label: "Courses", icon: Play },
+  { value: "50+", label: "Courses", icon: BookOpenCheck },
   { value: "4.8/5", label: "Average Rating", icon: Star },
   { value: "30+", label: "Countries", icon: Globe2 },
 ] as const;
@@ -118,7 +119,7 @@ const courses = [
   },
 ] as const;
 
-const ways = [
+const learningAdvantages = [
   {
     title: "Secure & Reliable",
     text: "Your learning progress and data are always safe.",
@@ -293,7 +294,7 @@ export default function HomePage() {
             >
               <Search size={22} strokeWidth={2.2} />
             </button>
-            <Link className="button button-outline button-compact" to="/auth/login">Log in</Link>
+            <Link className="button button-login button-compact" to="/auth/login">Log in</Link>
             <Link className="button button-primary button-compact" to="/courses">Start Learning</Link>
             <button
               className="mobile-menu-button"
@@ -363,15 +364,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="hero-visual">
-            <img src="/assets/hero-student.webp" alt="Student holding a biology book" />
-            <button
-              className="hero-visual-action"
-              type="button"
-              onClick={() => setActiveDialog("intro")}
-              aria-label="See biology in action — watch the introduction"
-            />
-          </div>
         </div>
       </section>
 
@@ -420,6 +412,34 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="better-way-section section-pad" id="why-biophlo">
+        <div className="container">
+          <header className="better-way-heading reveal">
+            <p className="mini-label">Why BIOPHLO</p>
+            <h2>A Better Way to Learn Biology</h2>
+          </header>
+          <div className="better-way-grid">
+            {learningAdvantages.map(({ title, text, icon: Icon }, index) => (
+              <article
+                className={`better-way-card${index === 1 ? " better-way-card-featured" : ""} reveal`}
+                key={title}
+              >
+                <span className="better-way-icon"><Icon size={30} strokeWidth={1.8} /></span>
+                <div className="better-way-copy">
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+                {index === 1 && (
+                  <span className="device-art" aria-hidden="true">
+                    <img src="/assets/a-better-way-to-learn-biology.png" alt="" />
+                  </span>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="about-section section-pad" id="about">
         <div className="container about-grid reveal">
           <div className="about-photo">
@@ -442,7 +462,15 @@ export default function HomePage() {
               More About Me <ArrowRight size={18} />
             </Link>
           </div>
-          <div className="molecule-decoration" aria-hidden="true"><i /><i /><i /><i /></div>
+          <img
+            className="molecule-decoration"
+            src="/assets/molecule-network.jpeg"
+            alt=""
+            aria-hidden="true"
+            width={407}
+            height={627}
+            decoding="async"
+          />
         </div>
       </section>
 
@@ -454,6 +482,14 @@ export default function HomePage() {
               <div><strong>{value}</strong><span>{label}</span></div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="science-banner reveal" aria-label="Biology discovery banner">
+        <img src="/assets/banner.jpeg" alt="Microscope, laboratory glassware, molecules, and a glowing idea bulb" />
+        <div className="science-banner-copy">
+          <p>Learn · Explore · Grow</p>
+          <h2>Discover the Science of Life</h2>
         </div>
       </section>
 
@@ -556,26 +592,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="why-section section-pad" id="why-biophlo">
-        <div className="container">
-          <header className="why-heading reveal">
-            <p className="mini-label">Why BIOPHLO</p>
-            <h2>A Better Way to Learn Biology</h2>
-          </header>
-          <div className="way-grid">
-            {ways.map(({ title, text, icon: Icon }) => (
-              <article className="way-card reveal" key={title}>
-                <span className="way-icon"><Icon size={25} /></span>
-                <div><h3>{title}</h3><p>{text}</p></div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="cta-section">
         <div className="container cta-card reveal">
-          <img src="/assets/cta-biology.webp" alt="Biology-inspired leaf and DNA artwork" className="cta-art" />
           <div className="cta-copy">
             <p>Ready to start?</p>
             <h2>Unlock the Wonders of Biology</h2>
@@ -584,7 +602,9 @@ export default function HomePage() {
               Start Learning Today <ArrowRight size={18} />
             </Link>
           </div>
-          <p className="cta-note" aria-hidden="true">Science<br />Connects Us<br />All</p>
+          <div className="cta-instructor">
+            <img src="/assets/cta-instructor-pointing.png" alt="Biology instructor pointing toward the invitation to start learning" />
+          </div>
         </div>
       </section>
 
