@@ -41,5 +41,4 @@ Forms, editing actions, filters, notifications, course progress, preferences, an
 
 Developed by the **BIOPHLO Project Development Team**:
 
-- **Mohammad Abo Al Ghozlan**
-- **Somaya Al Minawi**
+- **Mohammad Abo Al Ghozlan** | - **Somaya Al Minawi**
