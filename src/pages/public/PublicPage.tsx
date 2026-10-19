@@ -10,6 +10,7 @@ import {
   BookOpen,
   Check,
   CheckCircle2,
+  ChartNoAxesColumnIncreasing,
   ChevronDown,
   ChevronRight,
   CircleHelp,
@@ -506,7 +507,7 @@ function FAQPage({ page }: { page: PageDefinition }) {
         <aside><strong>Browse by topic</strong>{["All", "Courses", "Learning", "Payments", "Account"].map((item) => <button type="button" className={category === item ? "is-active" : ""} onClick={() => setCategory(item)} key={item}>{item}<span>{item === "All" ? faqs.length : faqs.filter((faq) => faq.category === item).length}</span></button>)}</aside>
         <div className="faq-list"><div className="faq-list__heading"><span className="section-mark">{category === "All" ? "All questions" : category}</span><h2>{visible.length} answers to explore</h2></div>{visible.map((faq) => { const index = faqs.indexOf(faq); return <article className={open === index ? "is-open" : ""} key={faq.question}><button type="button" aria-expanded={open === index} onClick={() => setOpen(open === index ? -1 : index)}><span>{faq.question}<small>{faq.category}</small></span><Plus /></button>{open === index && <div><p>{faq.answer}</p>{faq.category === "Payments" && <a href="/legal/refunds">Read the refund policy <ArrowRight size={14} /></a>}</div>}</article>; })}{!visible.length && <div className="empty-state"><CircleHelp size={34} /><h2>No answer matched your search</h2><p>Try fewer words, or ask our support team.</p></div>}</div>
       </section>
-      <section className="page-container support-strip"><MessageCircle /><div><h2>Still have a question?</h2><p>Our learner support team usually replies within one working day.</p></div><a className="button button--teal" href="/contact">Contact BIOPHLO</a></section>
+      <section className="page-container support-strip"><MessageCircle /><div><h2>Still have a question?</h2><p>Our learner support team usually replies within one working day.</p></div><a className="button button--orange" href="/contact">Contact BIOPHLO</a></section>
     </>
   );
 }
@@ -541,7 +542,7 @@ function ContactPage({ page }: { page: PageDefinition }) {
 
 const supportArticles = [
   ["Getting started", "Choose your first course, set a study goal, and understand your dashboard.", BookOpen],
-  ["Courses and progress", "Resume lessons, reset an activity, or understand completion status.", BarChart3],
+  ["Courses and progress", "Resume lessons, reset an activity, or understand completion status.", ChartNoAxesColumnIncreasing],
   ["Account and sign-in", "Update your email, reset a password, or protect your account.", UserRound],
   ["Billing and subscriptions", "Find invoices, manage renewal, and understand a payment status.", ShoppingBag],
   ["Technical troubleshooting", "Resolve video, download, browser, and device problems.", MonitorPlay],

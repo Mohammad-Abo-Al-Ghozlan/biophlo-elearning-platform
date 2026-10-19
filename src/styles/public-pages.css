@@ -470,3 +470,108 @@ img { max-width: 100%; }
   .library-filter-row { align-items: stretch; flex-direction: column; }
   .library-filter-row select, .library-filter-row button { width: 100%; }
 }
+
+/* Support, search, course-detail, and cart consistency pass */
+.hero-search {
+  box-shadow: none;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.hero-search:focus-within {
+  border-color: var(--bio-teal-dark);
+  box-shadow: 0 0 0 3px rgba(8, 117, 126, .2);
+}
+.hero-search input:focus-visible,
+.search-dialog__top input:focus-visible {
+  outline: 0;
+}
+.search-dialog__top {
+  transition: box-shadow .18s ease;
+}
+.search-dialog__top:focus-within {
+  box-shadow: inset 0 -3px var(--bio-teal-dark);
+}
+
+.support-grid > button,
+.article-preview,
+.cart-items,
+.promo-box,
+.cart-assurances > div,
+.order-summary {
+  border-color: rgba(7, 63, 88, .13);
+  border-radius: var(--bio-radius);
+  background: #fff;
+}
+.support-grid > button {
+  min-height: 220px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(7, 63, 88, .055);
+  transition: border-color .18s ease, transform .18s ease;
+}
+.support-grid > button:hover,
+.support-grid > button.is-selected {
+  border-color: var(--bio-teal-dark);
+  background: #fff;
+  transform: translateY(-2px);
+}
+.support-grid > button > span,
+.support-contact__art {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--bio-aqua), var(--bio-teal-dark));
+  color: #fff;
+}
+.support-grid > button > span svg,
+.support-contact__art svg {
+  width: 29px;
+  height: 29px;
+  stroke-width: 1.9;
+}
+.support-contact {
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: var(--bio-radius);
+  background: linear-gradient(145deg, #0a999c, #087b89);
+  box-shadow: none;
+  color: rgba(255, 255, 255, .82);
+}
+.support-contact__art {
+  background: #fff;
+  color: var(--bio-teal-dark);
+}
+.support-contact .section-mark { color: #d7f7f4; }
+.support-contact hr { border-top-color: rgba(255, 255, 255, .26); }
+.support-contact dt { color: rgba(255, 255, 255, .7); }
+
+.support-strip {
+  border: 1px solid rgba(7, 63, 88, .1);
+  background: linear-gradient(125deg, var(--bio-aqua), var(--bio-teal-dark));
+  color: rgba(255, 255, 255, .86);
+}
+.support-strip > svg { color: #fff; }
+.support-strip .button,
+.support-page .button,
+.cart-layout .button {
+  box-shadow: none;
+}
+.support-strip .button:hover,
+.support-page .button:hover,
+.cart-layout .button:hover {
+  box-shadow: none;
+}
+
+.course-detail-hero {
+  background: linear-gradient(118deg, var(--bio-navy) 0%, var(--bio-teal-dark) 56%, var(--bio-aqua) 100%);
+}
+
+.cart-items,
+.promo-box,
+.order-summary {
+  box-shadow: none;
+}
+.cart-assurances > div {
+  border: 1px solid rgba(7, 63, 88, .1);
+  background: #f4f9f9;
+}
+.order-summary {
+  border-top: 4px solid var(--bio-teal-dark);
+}
