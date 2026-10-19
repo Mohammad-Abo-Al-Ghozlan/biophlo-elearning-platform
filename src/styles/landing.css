@@ -915,7 +915,7 @@
   height: 28px;
   flex: 0 0 auto;
   border-radius: 50%;
-  background: url("/assets/instructor.webp") center 12% / 115% auto;
+  background: url("/assets/cta-instructor-pointing.png") center 12% / 115% auto;
 }
 
 .bio-home .circle-arrow {
@@ -2242,4 +2242,37 @@
     background: transparent;
   }
   .bio-home .cta-instructor img { object-fit: contain; object-position: right bottom; }
+}
+
+/* Supplied BIOPHLO artwork and course-card refinements */
+.bio-home .molecule-art {
+  position: absolute;
+  z-index: 0;
+  width: 155px;
+  height: auto;
+  opacity: .12;
+  pointer-events: none;
+}
+.bio-home .molecule-art-left { left: -44px; top: 115px; transform: rotate(-12deg); }
+.bio-home .molecule-art-right { right: -35px; bottom: 95px; transform: rotate(13deg); }
+.bio-home .course-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 16px;
+}
+.bio-home .course-title-row h3 { flex: 1; margin: 0 0 8px; font-size: 21px; }
+.bio-home .course-level {
+  flex: 0 0 auto;
+  min-height: 25px;
+  margin: 1px 0 0;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .bio-home .molecule-art { width: 105px; opacity: .08; }
+  .bio-home .molecule-art-left { left: -55px; }
+  .bio-home .molecule-art-right { right: -50px; }
 }

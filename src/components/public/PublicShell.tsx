@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   ArrowRight,
-  BookOpen,
   ChevronDown,
   Menu,
   Search,
@@ -62,7 +61,7 @@ export function PublicShell({ page, children, minimal = false }: PublicShellProp
       <header className="public-header">
         <div className="public-header__inner">
           <a className="brand" href="/" aria-label="BIOPHLO home">
-            <img src="/assets/biophlo-logo.webp" alt="BIOPHLO" />
+            <img src="/assets/biophlo-logo-transparent.png" alt="BIOPHLO" />
           </a>
           {!minimal && (
             <>
@@ -131,14 +130,14 @@ export function PublicShell({ page, children, minimal = false }: PublicShellProp
         <footer className="public-footer">
           <div className="public-footer__lead page-container">
             <div>
-              <span className="footer-mark"><BookOpen size={20} /> Biology, made memorable</span>
+              <span className="footer-mark">Biology, made memorable</span>
               <h2>Keep your curiosity moving.</h2>
             </div>
             <a className="button button--orange" href="/courses">Explore all courses <ArrowRight size={17} /></a>
           </div>
           <div className="public-footer__grid page-container">
             <div className="footer-brand">
-              <img src="/assets/biophlo-logo.webp" alt="BIOPHLO" />
+              <img src="/assets/biophlo-logo-transparent.png" alt="BIOPHLO" />
               <p>Clear, visual biology learning built around understanding—not memorising.</p>
               <span>© 2026 BIOPHLO. All rights reserved.</span>
             </div>

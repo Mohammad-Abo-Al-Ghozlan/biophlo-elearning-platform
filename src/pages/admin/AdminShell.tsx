@@ -124,7 +124,7 @@ export function AdminShell({ page, children }: AdminShellProps) {
             <div className="admin-profile-wrap">
               <button className="admin-profile" type="button" onClick={() => setProfileOpen((current) => !current)} aria-expanded={profileOpen}>
                 <span className="admin-avatar">SA</span>
-                <span><strong>Dr. Sarah Ahmed</strong><small>Administrator</small></span>
+                <span><strong>Dr. Ola</strong><small>Administrator</small></span>
                 <ChevronDown size={16} />
               </button>
               {profileOpen ? (

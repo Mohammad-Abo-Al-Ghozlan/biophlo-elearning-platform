@@ -302,3 +302,171 @@ img { max-width: 100%; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* BIOPHLO brand and page refinements */
+.page-hero {
+  background: linear-gradient(122deg, #4cbbb4 0%, #70d1ca 52%, #c7efeb 100%);
+  border-bottom-color: rgba(7, 63, 88, .12);
+}
+.page-hero h1 { color: var(--bio-navy-deep); }
+.page-hero p { color: #174f5d; }
+.page-hero .breadcrumbs { color: #285f69; }
+.page-hero .page-kicker { color: #064e5c; }
+.page-hero__molecule {
+  top: 50%;
+  right: 4%;
+  width: 170px;
+  height: auto;
+  object-fit: contain;
+  opacity: .2;
+  transform: translateY(-50%) rotate(8deg);
+}
+
+.banner-molecule {
+  position: absolute;
+  z-index: 0;
+  right: 3%;
+  top: 50%;
+  width: 175px;
+  opacity: .12;
+  pointer-events: none;
+  transform: translateY(-50%) rotate(7deg);
+}
+.course-detail-hero {
+  position: relative;
+  background: linear-gradient(118deg, #378f94 0%, #4cbbb4 58%, #78d4ce 100%);
+}
+.course-detail-hero__grid { position: relative; z-index: 1; }
+.course-detail-hero p { color: #effcfc; }
+.course-detail-hero .breadcrumbs--light { color: #e2f6f5; }
+.resource-detail-hero {
+  position: relative;
+  background: linear-gradient(118deg, #4cbbb4 0%, #82d9d2 54%, #d4f3ef 100%);
+}
+.resource-detail-hero__grid { position: relative; z-index: 1; }
+.resource-detail-hero p { color: #174f5d; }
+
+.course-card__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+.course-card__title-row h2 { flex: 1; font-size: 21px; line-height: 1.23; }
+.course-card__subject { font-size: 12px; }
+.level-badge {
+  position: static;
+  flex: 0 0 auto;
+  margin-top: 6px;
+  white-space: nowrap;
+  background: var(--bio-teal);
+}
+.filter-note {
+  align-items: flex-start;
+  background: linear-gradient(145deg, var(--bio-teal-dark), var(--bio-navy));
+  color: #fff;
+}
+.filter-note svg { color: var(--bio-orange); }
+
+.belief-grid article > span {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--bio-aqua), var(--bio-teal-dark));
+  color: #fff;
+}
+.belief-grid article > span svg { width: 30px; height: 30px; stroke-width: 1.8; }
+.impact-stats { gap: 0; border: 0; background: transparent; box-shadow: var(--bio-shadow-sm); }
+.impact-stats div { min-height: 132px; justify-content: center; background: linear-gradient(145deg, var(--bio-aqua), var(--bio-teal-dark)); }
+.impact-stats div:nth-child(even) { background: #fff; }
+.impact-stats div:nth-child(odd) strong,
+.impact-stats div:nth-child(odd) span { color: #fff; }
+
+.instructor-hero {
+  position: relative;
+  min-height: 470px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(76,187,180,.08) 0%, rgba(7,63,88,.72) 53%, rgba(3,46,66,.97) 100%),
+    url("/assets/cta-instructor-pointing.png") left 32% / auto 175% no-repeat,
+    #4cbbb4;
+}
+.instructor-hero__content { width: min(1180px, calc(100% - 48px)); padding-block: 82px; }
+.instructor-hero__content > * { width: min(560px, 52%); margin-left: auto; }
+.instructor-hero .breadcrumbs { justify-content: flex-start; color: #c5e5e5; }
+.instructor-hero .breadcrumbs a { color: #fff; }
+.instructor-hero .page-kicker { display: block; color: #81ddd7; }
+.instructor-hero h1 { margin: 11px 0 14px; color: #fff; font-size: clamp(42px, 6vw, 68px); letter-spacing: -.045em; }
+.instructor-hero p { margin-top: 0; color: #d7eeee; font-size: 19px; }
+.teaching-method { background: #1f7d8e; }
+.method-track article > span { background: #155f70; }
+.method-track::before { background: rgba(255,255,255,.26); }
+
+.library-signup {
+  margin: 0 0 30px;
+  border-color: transparent;
+  background: linear-gradient(125deg, var(--bio-navy), var(--bio-teal-dark));
+  color: #fff;
+  box-shadow: var(--bio-shadow-sm);
+}
+.library-signup > div > svg { color: var(--bio-orange); }
+.library-signup p { color: #d2e7e9; }
+.library-toolbar {
+  padding: 22px;
+  border: 1px solid var(--bio-line);
+  border-radius: 16px;
+  background: #f7fbfb;
+}
+.library-filter-row { display: flex; align-items: flex-end; justify-content: center; gap: 12px; }
+.library-filter-row label { display: flex; flex-direction: column; gap: 5px; color: var(--bio-muted); font-size: 11px; font-weight: 700; }
+.library-filter-row select { min-width: 190px; height: 43px; padding: 0 34px 0 12px; border: 1px solid var(--bio-line); border-radius: 9px; background: #fff; color: var(--bio-ink); }
+.library-filter-row button { height: 43px; padding: 0 15px; border: 1px solid #9dcdd0; border-radius: 9px; background: #fff; color: var(--bio-teal-dark); font-size: 12px; font-weight: 800; cursor: pointer; }
+.youtube-section { margin-top: 70px; padding-top: 58px; border-top: 1px solid var(--bio-line); }
+.youtube-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 21px; }
+.youtube-grid > a { overflow: hidden; display: flex; flex-direction: column; border: 1px solid var(--bio-line); border-radius: 15px; background: #fff; box-shadow: var(--bio-shadow-sm); }
+.youtube-thumb { position: relative; height: 175px; overflow: hidden; }
+.youtube-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .25s ease; }
+.youtube-grid > a:hover .youtube-thumb img { transform: scale(1.035); }
+.youtube-thumb i { position: absolute; inset: 0; margin: auto; width: 54px; height: 54px; display: grid; place-items: center; border-radius: 50%; background: #fff; color: #e52d27; box-shadow: 0 8px 25px rgba(3,46,66,.2); }
+.youtube-grid small { margin: 16px 17px 5px; color: var(--bio-teal-dark); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+.youtube-grid strong { margin: 0 17px; color: var(--bio-navy); font: 800 18px/1.28 "Manrope", sans-serif; }
+.youtube-grid em { margin: 16px 17px 18px; display: flex; align-items: center; gap: 6px; color: var(--bio-teal-dark); font-size: 12px; font-style: normal; font-weight: 800; }
+.guide-preview__page img { clip-path: none; border-radius: 12px; }
+
+.auth-page__visual {
+  background: linear-gradient(145deg, #4cbbb4 0%, #1f7d8e 50%, #073f58 100%);
+}
+.auth-page__molecule {
+  position: absolute;
+  left: 12%;
+  top: 70px;
+  width: min(360px, 78%);
+  height: auto;
+  opacity: .2;
+  transform: rotate(-8deg);
+}
+.system-page__molecule {
+  position: absolute;
+  width: 430px;
+  height: auto;
+  left: -105px;
+  bottom: -115px;
+  opacity: .1;
+  transform: rotate(-12deg);
+}
+.taxonomy-feature__diagram { width: 250px; height: auto; max-height: 270px; object-fit: contain; opacity: .68; }
+
+@media (max-width: 800px) {
+  .page-hero__molecule, .banner-molecule { right: -65px; width: 140px; opacity: .12; }
+  .instructor-hero { min-height: 560px; align-items: flex-end; background-position: center top; background-size: auto 120%; }
+  .instructor-hero::after { position: absolute; inset: 36% 0 0; background: linear-gradient(transparent, rgba(3,46,66,.98) 44%); content: ""; }
+  .instructor-hero__content { position: relative; z-index: 1; padding-block: 260px 42px; }
+  .instructor-hero__content > * { width: 100%; }
+  .instructor-hero p { font-size: 16px; }
+  .youtube-grid { grid-template-columns: 1fr; }
+  .youtube-thumb { height: 220px; }
+  .library-filter-row { align-items: stretch; flex-direction: column; }
+  .library-filter-row select, .library-filter-row button { width: 100%; }
+}

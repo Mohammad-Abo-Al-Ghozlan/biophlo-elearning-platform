@@ -54,7 +54,7 @@ const initialDraft: CourseDraft = {
   slug: "",
   shortDescription: "",
   description: "",
-  instructor: "Dr. Sarah Ahmed",
+  instructor: "Dr. Ola",
   subject: "Biology",
   category: "Cell biology",
   level: "Intermediate",
@@ -227,7 +227,7 @@ export function CourseEditor() {
                 <Field label="Course title" required className="span-2"><input className="text-input" value={draft.title} onChange={(event) => updateTitle(event.target.value)} placeholder="e.g. Cell Structure and Function" aria-invalid={Boolean(errors.title)} />{errors.title ? <small className="field-error">{errors.title}</small> : null}</Field>
                 <Field label="Subtitle" className="span-2" help="One supporting line shown beneath the course title."><input className="text-input" value={draft.subtitle} onChange={(event) => update("subtitle", event.target.value)} placeholder="Master the building blocks of life through clear visual lessons" /></Field>
                 <Field label="URL slug" help="Lowercase words separated by hyphens."><div className="input-prefix"><span>/courses/</span><input className="text-input" value={draft.slug} onChange={(event) => update("slug", event.target.value.replace(/[^a-z0-9-]/g, ""))} /></div></Field>
-                <Field label="Instructor"><select className="select-input" value={draft.instructor} onChange={(event) => update("instructor", event.target.value)}><option>Dr. Sarah Ahmed</option><option>Dr. Omar Khalil</option><option>Prof. Maya Chen</option></select></Field>
+                <Field label="Instructor"><select className="select-input" value={draft.instructor} onChange={(event) => update("instructor", event.target.value)}><option>Dr. Ola</option><option>Dr. Omar Khalil</option><option>Prof. Maya Chen</option></select></Field>
                 <Field label="Catalog summary" required className="span-2" help={`${draft.shortDescription.length}/180 characters`}><textarea className="text-area short-area" maxLength={180} value={draft.shortDescription} onChange={(event) => update("shortDescription", event.target.value)} placeholder="Explain who this course is for and the result it helps them achieve." aria-invalid={Boolean(errors.shortDescription)} />{errors.shortDescription ? <small className="field-error">{errors.shortDescription}</small> : null}</Field>
                 <Field label="Full description" required className="span-2"><textarea className="text-area editor-rich-area" value={draft.description} onChange={(event) => update("description", event.target.value)} placeholder="Describe the course approach, outcomes, and learner experience…" aria-invalid={Boolean(errors.description)} />{errors.description ? <small className="field-error">{errors.description}</small> : null}</Field>
                 <Field label="Subject"><select className="select-input" value={draft.subject} onChange={(event) => update("subject", event.target.value)}><option>Biology</option><option>Human biology</option><option>Environmental science</option></select></Field>

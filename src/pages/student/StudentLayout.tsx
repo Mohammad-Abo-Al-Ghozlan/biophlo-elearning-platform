@@ -54,7 +54,7 @@ export function StudentLayout({ page, children, fullBleed = false }: StudentLayo
       <aside className="student-rail" aria-label="Student navigation">
         <div className="student-rail__head">
           <Link to="/" className="student-brand" aria-label="BIOPHLO home">
-            <img src="/assets/biophlo-logo.webp" alt="BIOPHLO" />
+            <img src="/assets/biophlo-logo-transparent.png" alt="BIOPHLO" />
           </Link>
           <button className="student-icon-button student-rail__close" onClick={() => setMenuOpen(false)} aria-label="Close navigation">
             <X size={20} />

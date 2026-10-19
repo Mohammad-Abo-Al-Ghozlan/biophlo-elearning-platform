@@ -15,15 +15,15 @@ const page = (area: PageDefinition["area"], seed: PageSeed): PageDefinition => (
 
 const publicSeeds: PageSeed[] = [
   ["home", "Home", "/", "Main pages", "home", "Discover BIOPHLO biology learning."],
-  ["course-catalog", "Course catalog", "/courses", "Main pages", "catalog", "Find the right biology course by topic, level, and exam board."],
+  ["course-catalog", "Course Catalog", "/courses", "Main pages", "catalog", "Find the right biology course by topic, level, and exam board."],
   ["course-details", "Course details", "/courses/cell-structure-and-function", "Main pages", "detail", "Review outcomes, curriculum, instructor, pricing, and learner feedback.", "Add to cart"],
   ["subjects", "Subjects", "/subjects", "Main pages", "taxonomy", "Explore biology by subject area."],
   ["curricula", "Curricula and exam boards", "/curricula", "Main pages", "taxonomy", "Browse content aligned to leading curricula and exam boards."],
   ["grades", "Grades and levels", "/grades", "Main pages", "taxonomy", "Choose learning designed for your current grade and level."],
   ["about", "About BIOPHLO", "/about", "Main pages", "content", "Why BIOPHLO makes complex biology clear, visual, and memorable."],
-  ["instructor", "About the instructor", "/instructor", "Main pages", "profile", "Meet Dr. Sarah Ahmed and her teaching approach."],
+  ["instructor", "About the Instructor", "/instructor", "Main pages", "profile", "Meet Dr. Ola and her teaching approach."],
   ["pricing", "Pricing and subscriptions", "/pricing", "Main pages", "checkout", "Straightforward plans for every learning goal."],
-  ["resources", "Free resources", "/resources", "Main pages", "listing", "Study guides, diagrams, revision notes, and worksheets."],
+  ["resources", "Free Resources", "/resources", "Main pages", "listing", "Study guides, diagrams, revision notes, and worksheets."],
   ["resource-details", "Resource details", "/resources/cell-division-study-guide", "Main pages", "detail", "Preview and download the cell division study guide.", "Save resource"],
   ["past-papers", "Past papers", "/past-papers", "Main pages", "listing", "Practice with curriculum-aligned papers and mark schemes."],
   ["videos", "Video library", "/videos", "Main pages", "media", "Watch focused biology explainers and worked examples."],

@@ -264,7 +264,7 @@ export default function HomePage() {
       <header className="site-header">
         <div className="container header-inner">
           <Link className="brand-link" to="/" aria-label="BIOPHLO home">
-            <img className="brand-logo" src="/assets/biophlo-logo.webp" alt="BIOPHLO" />
+            <img className="brand-logo" src="/assets/biophlo-logo-transparent.png" alt="BIOPHLO" />
           </Link>
 
           <nav className="desktop-nav" aria-label="Main navigation">
@@ -382,12 +382,8 @@ export default function HomePage() {
       </section>
 
       <section className="journey-section section-pad" id="journey">
-        <div className="hex-decoration hex-decoration-left" aria-hidden="true">
-          <span /><span /><span />
-        </div>
-        <div className="hex-decoration hex-decoration-right" aria-hidden="true">
-          <span /><span /><span />
-        </div>
+        <img className="molecule-art molecule-art-left" src="/assets/molecule-amber.png" alt="" aria-hidden="true" />
+        <img className="molecule-art molecule-art-right" src="/assets/molecule-aqua.png" alt="" aria-hidden="true" />
         <div className="container">
           <header className="section-heading reveal">
             <h2>Your learning journey</h2>
@@ -443,11 +439,11 @@ export default function HomePage() {
       <section className="about-section section-pad" id="about">
         <div className="container about-grid reveal">
           <div className="about-photo">
-            <img src="/assets/instructor.webp" alt="Dr. Sarah Ahmed working with a microscope" />
+            <img src="/assets/cta-instructor-pointing.png" alt="Dr. Ola working with a microscope" />
           </div>
           <div className="about-copy">
             <p className="mini-label">About the instructor</p>
-            <h2>Hi, I’m Dr. <span>Sarah Ahmed</span></h2>
+            <h2>Hi, I’m <span>Dr. Ola</span></h2>
             <p className="about-intro">
               Biology educator, researcher, and lifelong learner. My passion is making biology
               simple, engaging, and relevant to real life. Through BioPhlo, I help students
@@ -464,7 +460,7 @@ export default function HomePage() {
           </div>
           <img
             className="molecule-decoration"
-            src="/assets/molecule-network.jpeg"
+            src="/assets/molecule-aqua.png"
             alt=""
             aria-hidden="true"
             width={407}
@@ -510,8 +506,7 @@ export default function HomePage() {
               <article className="course-card reveal" key={course.title}>
                 <img className="course-image" src={course.image} alt={course.alt} />
                 <div className="course-body">
-                  <span className={`course-level ${course.level.toLowerCase()}`}>{course.level}</span>
-                  <h3>{course.title}</h3>
+                  <div className="course-title-row"><h3>{course.title}</h3><span className={`course-level ${course.level.toLowerCase()}`}>{course.level}</span></div>
                   <div className="rating-row">
                     <span className="rating-stars" aria-label={`${course.rating} out of 5 stars`}>
                       {Array.from({ length: 5 }, (_, index) => (
@@ -523,7 +518,7 @@ export default function HomePage() {
                   <div className="course-footer">
                     <div className="instructor-mini">
                       <span className="teacher-avatar" aria-hidden="true" />
-                      <span>Dr. Sarah Ahmed</span>
+                      <span>Dr. Ola</span>
                     </div>
                     <Link
                       className="circle-arrow"
@@ -611,7 +606,7 @@ export default function HomePage() {
       <footer className="site-footer" id="contact">
         <div className="container footer-grid">
           <div className="footer-brand">
-            <img src="/assets/biophlo-logo.webp" alt="BIOPHLO" />
+            <img src="/assets/biophlo-logo-transparent.png" alt="BIOPHLO" />
             <p>Learn Biology. Live a Brighter Tomorrow.</p>
             <div className="social-links" aria-label="Social media">
               <a href="https://www.facebook.com" target="_blank" rel="noreferrer" aria-label="BIOPHLO on Facebook">f</a>
@@ -724,7 +719,7 @@ export default function HomePage() {
               <X size={22} />
             </button>
             <div className="dialog-video-frame">
-              <img src="/assets/lesson-video.webp" alt="Dr. Sarah Ahmed introducing a cell-structure lesson" />
+              <img src="/assets/lesson-video.webp" alt="Dr. Ola introducing a cell-structure lesson" />
               <span><Play size={28} fill="currentColor" /></span>
             </div>
             <div className="dialog-copy">

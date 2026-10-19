@@ -95,7 +95,7 @@ export const courses: Course[] = [
     title: "Cell Structure and Function",
     subject: "Cell biology",
     level: "Advanced",
-    instructor: "Dr. Sarah Ahmed",
+    instructor: "Dr. Ola",
     image: "/assets/course-cell.webp",
     progress: 68,
     status: "In progress",
@@ -110,7 +110,7 @@ export const courses: Course[] = [
     title: "Genetics and Inheritance",
     subject: "Genetics",
     level: "Intermediate",
-    instructor: "Dr. Sarah Ahmed",
+    instructor: "Dr. Ola",
     image: "/assets/course-genetics.webp",
     progress: 42,
     status: "In progress",
@@ -125,7 +125,7 @@ export const courses: Course[] = [
     title: "Introduction to Plant Biology",
     subject: "Botany",
     level: "Beginner",
-    instructor: "Dr. Sarah Ahmed",
+    instructor: "Dr. Ola",
     image: "/assets/course-plant.webp",
     progress: 100,
     status: "Completed",
@@ -262,7 +262,7 @@ export const badges = [
 ];
 
 export const announcements = [
-  { id: 1, title: "Live revision clinic this Saturday", category: "Live session", date: "11 Sep 2026", author: "Dr. Sarah Ahmed", excerpt: "Bring your questions on membranes, transport, and cell signaling. The one-hour clinic includes a worked exam question.", important: true, unread: true },
+  { id: 1, title: "Live revision clinic this Saturday", category: "Live session", date: "11 Sep 2026", author: "Dr. Ola", excerpt: "Bring your questions on membranes, transport, and cell signaling. The one-hour clinic includes a worked exam question.", important: true, unread: true },
   { id: 2, title: "New diagrams added to module two", category: "Course update", date: "9 Sep 2026", author: "BIOPHLO Learning Team", excerpt: "Downloadable organelle maps and a membrane transport comparison sheet are now available in resources.", important: false, unread: true },
   { id: 3, title: "September study challenge", category: "Community", date: "1 Sep 2026", author: "BIOPHLO Community", excerpt: "Complete four focused sessions each week to unlock the limited Study Rhythm badge.", important: false, unread: true },
   { id: 4, title: "Scheduled platform maintenance complete", category: "Platform", date: "28 Aug 2026", author: "BIOPHLO Support", excerpt: "Video playback and saved notes are operating normally following the planned maintenance window.", important: false, unread: false },
@@ -288,7 +288,7 @@ export const initialQuestions: Question[] = [
 ];
 
 export const conversations = [
-  { id: "sarah", name: "Dr. Sarah Ahmed", role: "Course instructor", avatar: "SA", preview: "Your reasoning is strong—look again at how...", time: "10:24", unread: 2, online: true },
+  { id: "ola", name: "Dr. Ola", role: "Course instructor", avatar: "OA", preview: "Your reasoning is strong—look again at how...", time: "10:24", unread: 2, online: true },
   { id: "support", name: "BIOPHLO Support", role: "Learner support", avatar: "BS", preview: "We have attached the updated invoice.", time: "Yesterday", unread: 0, online: true },
   { id: "study", name: "Cell Biology study circle", role: "6 learners", avatar: "CB", preview: "Maya: I shared my membrane diagram.", time: "Tue", unread: 0, online: false },
 ];
@@ -301,7 +301,7 @@ export const initialChat = [
 
 export const initialNotifications = [
   { id: 1, kind: "course", title: "New lesson available", detail: "Transport across membranes is ready in Cell Structure and Function.", time: "18 min ago", unread: true },
-  { id: 2, kind: "answer", title: "Dr. Sarah answered your question", detail: "Your question about carrier saturation has a new instructor response.", time: "2h ago", unread: true },
+  { id: 2, kind: "answer", title: "Dr. Ola answered your question", detail: "Your question about carrier saturation has a new instructor response.", time: "2h ago", unread: true },
   { id: 3, kind: "achievement", title: "You earned Quiz precision", detail: "A score above 90% unlocked a new badge.", time: "Yesterday", unread: true },
   { id: 4, kind: "billing", title: "Payment receipt available", detail: "Your receipt for BIOPHLO Plus is ready to download.", time: "3 days ago", unread: false },
   { id: 5, kind: "reminder", title: "Keep your learning rhythm", detail: "A 20-minute session today will preserve your seven-day streak.", time: "5 days ago", unread: false },
