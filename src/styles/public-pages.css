@@ -578,3 +578,154 @@ img { max-width: 100%; }
 .order-summary {
   border-top: 4px solid var(--bio-teal-dark);
 }
+
+/* Shared science banner — derived from the approved BIOPHLO reference */
+.page-hero,
+.course-detail-hero,
+.resource-detail-hero {
+  background-color: #72d2ce;
+  background-image: url("/assets/page-banner-biophlo.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.page-hero {
+  min-height: 365px;
+  display: grid;
+  align-items: center;
+  border-bottom-color: rgba(7, 63, 88, .13);
+}
+
+.page-hero__inner {
+  padding-block: 54px 62px;
+}
+
+.page-hero .breadcrumbs {
+  margin-bottom: 24px;
+  color: #246777;
+}
+
+.page-hero .breadcrumbs a {
+  color: #246777;
+}
+
+.page-hero .page-kicker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  color: #0b5064;
+  font-size: 13px;
+  letter-spacing: .3em;
+}
+
+.page-hero .page-kicker::after {
+  width: 60px;
+  height: 6px;
+  display: block;
+  background: var(--bio-orange);
+  content: "";
+}
+
+.page-hero h1 {
+  max-width: 900px;
+  margin-block: 18px 17px;
+  color: #032e42;
+  font-size: clamp(46px, 6vw, 72px);
+  letter-spacing: -.052em;
+}
+
+.page-hero p {
+  max-width: 770px;
+  color: #19586a;
+  font-size: clamp(16px, 1.75vw, 21px);
+}
+
+.course-detail-hero,
+.resource-detail-hero {
+  position: relative;
+  color: #073f58;
+}
+
+.course-detail-hero::before,
+.resource-detail-hero::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(218, 250, 247, .74), rgba(231, 253, 250, .48) 55%, rgba(102, 207, 202, .16));
+  content: "";
+  pointer-events: none;
+}
+
+.course-detail-hero__grid,
+.resource-detail-hero__grid {
+  position: relative;
+  z-index: 1;
+}
+
+.course-detail-hero h1,
+.resource-detail-hero h1 {
+  color: #032e42;
+}
+
+.course-detail-hero p,
+.resource-detail-hero p,
+.course-detail-hero .breadcrumbs--light,
+.course-detail-hero .breadcrumbs--light a,
+.resource-detail-hero .breadcrumbs,
+.resource-detail-hero .breadcrumbs a {
+  color: #19586a;
+}
+
+.course-detail-hero__rating,
+.resource-detail-hero__meta {
+  color: #194f60;
+}
+
+.course-detail-hero .detail-badge,
+.resource-detail-hero .detail-badge {
+  background: rgba(3, 46, 66, .1);
+  color: #074f60;
+}
+
+.course-detail-hero .instructor-chip a {
+  border-bottom-color: #087b89;
+  color: #073f58;
+}
+
+@media (max-width: 760px) {
+  .page-hero,
+  .course-detail-hero,
+  .resource-detail-hero {
+    background-position: center;
+  }
+
+  .page-hero {
+    min-height: 330px;
+  }
+
+  .page-hero__inner {
+    padding-block: 46px 52px;
+  }
+
+  .page-hero .page-kicker {
+    gap: 14px;
+    font-size: 11px;
+    letter-spacing: .22em;
+  }
+
+  .page-hero .page-kicker::after {
+    width: 48px;
+    height: 5px;
+  }
+
+  .page-hero h1 {
+    margin-block: 15px 13px;
+    font-size: clamp(36px, 11vw, 50px);
+  }
+
+  .course-detail-hero::before,
+  .resource-detail-hero::before {
+    background: rgba(222, 250, 247, .72);
+  }
+}
