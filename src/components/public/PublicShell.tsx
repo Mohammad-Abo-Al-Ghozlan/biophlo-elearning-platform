@@ -3,6 +3,7 @@ import {
   ArrowRight,
   ChevronDown,
   Menu,
+  MessageCircle,
   Search,
   ShoppingBag,
   X,
@@ -164,6 +165,11 @@ export function PublicShell({ page, children, minimal = false }: PublicShellProp
           </div>
         </footer>
       )}
+
+      <a className="floating-support" href="/support" aria-label="Open BIOPHLO support">
+        <MessageCircle size={24} />
+        <span>We’re ready to help</span>
+      </a>
 
       {searchOpen && (
         <div className="search-dialog" role="dialog" aria-modal="true" aria-label="Search BIOPHLO" onMouseDown={(event) => event.target === event.currentTarget && setSearchOpen(false)}>

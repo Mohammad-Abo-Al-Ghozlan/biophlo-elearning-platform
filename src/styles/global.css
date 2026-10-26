@@ -138,6 +138,21 @@ a { color: inherit; }
 .toast-stack { position: fixed; z-index: 5000; top: 18px; right: 18px; display: grid; width: min(390px, calc(100vw - 36px)); gap: 10px; }
 .toast { display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 11px; border: 1px solid var(--line); border-left-width: 4px; border-radius: 12px; background: #fff; padding: 14px; box-shadow: var(--shadow-md); animation: toast-in 220ms ease-out; }
 .toast-success { border-left-color: var(--success); }
+
+/* Buttons stay crisp across public, learner, and administration surfaces. */
+button,
+[role="button"],
+a.button,
+a.button-primary,
+a.button-secondary,
+a.button-quiet,
+a.button-danger,
+a.amber-button,
+a.student-button,
+[class*="button"] {
+  box-shadow: none !important;
+  filter: none !important;
+}
 .toast-warning { border-left-color: var(--amber); }
 .toast-danger { border-left-color: var(--danger); }
 .toast-info { border-left-color: var(--teal); }

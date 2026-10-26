@@ -293,7 +293,7 @@ function TaxonomyPage({ page }: { page: PageDefinition }) {
             </article>
           ))}
         </div>
-        <div className="taxonomy-feature">
+        <div className={`taxonomy-feature taxonomy-feature--${data.labels[selected][3]}`}>
           <div><span>Your selected pathway</span><h2>{data.labels[selected][0]}</h2><p>{data.labels[selected][1]} Start with a carefully sequenced course or browse an individual topic.</p><div className="button-row"><a className="button button--orange" href="/courses">Browse matching courses <ArrowRight size={17} /></a><a className="button button--outline" href="/resources">View free resources</a></div></div>
           <img className="taxonomy-feature__diagram" src="/assets/molecule-amber.png" alt="" aria-hidden="true" />
         </div>
@@ -322,18 +322,10 @@ function AboutPage({ page }: { page: PageDefinition }) {
   );
 }
 
-function InstructorPage({ page }: { page: PageDefinition }) {
+function InstructorPage() {
   const [bioExpanded, setBioExpanded] = useState(false);
   return (
     <>
-      <section className="instructor-hero" aria-label={page.title}>
-        <div className="page-container instructor-hero__content">
-          <nav className="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><ChevronRight size={14} /><span>{page.title}</span></nav>
-          <span className="page-kicker">Educator · Researcher · Lifelong learner</span>
-          <h1>Meet Dr. Ola</h1>
-          <p>Meet the person behind the diagrams, questions, and “now I get it” moments.</p>
-        </div>
-      </section>
       <section className="instructor-profile page-container section-space">
         <div className="instructor-profile__portrait"><img src="/assets/cta-instructor-pointing.png" alt="Dr. Ola in her biology laboratory" /><div><span>“Knowledge grows when we connect it.”</span></div></div>
         <div className="instructor-profile__bio"><span className="section-mark">Your instructor</span><h2>Hi, I’m Dr. Ola.</h2><p className="lead">I’m a molecular biology educator who believes scientific confidence begins when learners can explain an idea in their own words.</p><p>For more than a decade, I have taught learners across secondary, international, and pre-university programmes. My research training shaped how I ask questions; the classroom taught me how differently people build understanding.</p>{bioExpanded && <><p>I created BIOPHLO to bring the clarity of an excellent one-to-one explanation to every learner. I write and review each core lesson, working with curriculum specialists and accessibility reviewers to keep the learning rigorous, current, and inclusive.</p><p>Outside the studio, you’ll usually find me sketching a new diagram, tending an unruly collection of plants, or helping early-career science teachers turn difficult topics into teachable stories.</p></>}<button className="text-link" type="button" onClick={() => setBioExpanded((value) => !value)}>{bioExpanded ? "Show less" : "Read Ola’s full story"} <ChevronDown size={17} /></button>
@@ -416,7 +408,7 @@ function ResourceListingPage({ page }: { page: PageDefinition }) {
         <div className={`resource-grid${isVideos ? " resource-grid--videos" : ""}`}>
           {visible.map((item) => {
             const href = isVideos ? "/videos/cellular-respiration" : "/resources/cell-division-study-guide";
-            return <article className="resource-card" key={item.title}><a className="resource-card__image" href={href}><img src={item.image} alt="" />{isVideos ? <><span className="video-play"><Play fill="currentColor" /></span><small>{"duration" in item ? item.duration : ""}</small></> : <span className="resource-type"><FileText size={15} />{"type" in item ? item.type : "Video"}</span>}</a><div className="resource-card__body"><span>{item.topic} · {item.level}</span><h2><a href={href}>{item.title}</a></h2><div>{isVideos ? <small><Eye size={14} />{"views" in item ? item.views : "0"} views</small> : <small><FileText size={14} />{"pages" in item ? item.pages : ""}</small>}<button type="button" className={saved.includes(item.title) ? "is-saved" : ""} onClick={() => toggleSaved(item.title)}><Heart size={17} fill={saved.includes(item.title) ? "currentColor" : "none"} />{saved.includes(item.title) ? "Saved" : "Save"}</button></div></div></article>;
+            return <article className="resource-card" key={item.title}><a className="resource-card__image" href={href}><img src={item.image} alt="" />{isVideos && <><span className="video-play"><Play fill="currentColor" /></span><small>{"duration" in item ? item.duration : ""}</small></>}</a><div className="resource-card__body"><span>{item.topic} · {item.level}</span><div className="resource-card__title-row"><h2><a href={href}>{item.title}</a></h2>{!isVideos && <span className="resource-type"><FileText size={14} />{"type" in item ? item.type : "Resource"}</span>}</div><div>{isVideos ? <small><Eye size={14} />{"views" in item ? item.views : "0"} views</small> : <small><FileText size={14} />{"pages" in item ? item.pages : ""}</small>}<button type="button" className={saved.includes(item.title) ? "is-saved" : ""} onClick={() => toggleSaved(item.title)}><Heart size={17} fill={saved.includes(item.title) ? "currentColor" : "none"} />{saved.includes(item.title) ? "Saved" : "Save"}</button></div></div></article>;
           })}
         </div>
         {!visible.length && <div className="empty-state"><Search size={34} /><h2>Nothing matched that search</h2><p>Try a different phrase or select “All”.</p><button className="button button--teal" type="button" onClick={() => { setQuery(""); setFilter("All"); setLevelFilter("All levels"); }}>Show everything</button></div>}
@@ -554,7 +546,7 @@ function SupportPage({ page }: { page: PageDefinition }) {
   return (
     <>
       <PageHero page={page} kicker="BIOPHLO help centre" actions={<label className="hero-search"><Search /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="What do you need help with?" /></label>}>Find a quick answer or tell us where you’re stuck. Learning support and account help live in one place.</PageHero>
-      <section className="page-container support-page section-space"><div className="support-articles"><div className="section-heading-row"><div><span className="section-mark">Browse help</span><h2>Help by topic</h2></div><a className="text-link" href="/faq">View common questions <ArrowRight size={16} /></a></div><div className="support-grid">{filtered.map(([title, text, Icon]) => <button type="button" onClick={() => setIssue(String(title))} className={issue === title ? "is-selected" : ""} key={String(title)}><span><Icon /></span><h3>{String(title)}</h3><p>{String(text)}</p><em>Open articles <ArrowRight size={15} /></em></button>)}</div>{issue && <div className="article-preview"><button type="button" aria-label="Close article preview" onClick={() => setIssue("")}><X /></button><span className="section-mark">Suggested guide</span><h2>{issue}</h2><p>Start with the guided checks for {issue.toLowerCase()}. They cover the most common causes and preserve your learning data.</p><ol><li>Check that you’re signed in to the correct learner profile.</li><li>Refresh the page once and retry the action.</li><li>If the issue remains, note the page and any message you see.</li></ol><a className="button button--teal" href="/contact">Contact support with details</a></div>}</div><aside className="support-contact"><span className="support-contact__art"><Headphones /></span><span className="section-mark">Need a person?</span><h2>We’re ready to help.</h2><p>Send us the details once and your request will reach the team best placed to solve it.</p><a className="button button--orange button--wide" href="/contact"><MessageCircle size={17} /> Send a support request</a><hr /><dl><div><dt>Standard response</dt><dd>Within 1 working day</dd></div><div><dt>Account security</dt><dd>Prioritised immediately</dd></div><div><dt>Support hours</dt><dd>Sun–Thu, 09:00–17:00</dd></div></dl></aside></section>
+      <section className="page-container support-page section-space"><div className="support-articles"><div className="section-heading-row"><div><span className="section-mark">Browse help</span><h2>Help by topic</h2></div><a className="text-link" href="/faq">View common questions <ArrowRight size={16} /></a></div><div className="support-grid">{filtered.map(([title, text, Icon]) => <button type="button" onClick={() => setIssue(String(title))} className={issue === title ? "is-selected" : ""} key={String(title)}><span><Icon /></span><h3>{String(title)}</h3><p>{String(text)}</p><em>Open articles <ArrowRight size={15} /></em></button>)}</div>{issue && <div className="article-preview"><button type="button" aria-label="Close article preview" onClick={() => setIssue("")}><X /></button><span className="section-mark">Suggested guide</span><h2>{issue}</h2><p>Start with the guided checks for {issue.toLowerCase()}. They cover the most common causes and preserve your learning data.</p><ol><li>Check that you’re signed in to the correct learner profile.</li><li>Refresh the page once and retry the action.</li><li>If the issue remains, note the page and any message you see.</li></ol><a className="button button--teal" href="/contact">Contact support with details</a></div>}<section className="support-concierge"><span className="support-concierge__icon"><Headphones /></span><div><span className="section-mark">Need a person?</span><h2>We’re ready to help.</h2><p>Send the details once and we’ll route your request to the right person.</p></div><dl><div><dt>Replies</dt><dd>Within 1 working day</dd></div><div><dt>Hours</dt><dd>Sun–Thu · 09:00–17:00</dd></div></dl><a className="button button--orange" href="/contact"><MessageCircle size={17} /> Send a support request</a></section></div></section>
     </>
   );
 }
@@ -734,7 +726,7 @@ export function PublicPage({ page }: { page: PageDefinition }) {
     case "course-details": content = <CourseDetailPage page={page} />; break;
     case "subjects": case "curricula": case "grades": content = <TaxonomyPage page={page} />; break;
     case "about": content = <AboutPage page={page} />; break;
-    case "instructor": content = <InstructorPage page={page} />; break;
+    case "instructor": content = <InstructorPage />; break;
     case "pricing": content = <PricingPage page={page} />; break;
     case "resources": case "videos": content = <ResourceListingPage page={page} />; break;
     case "past-papers": content = <PastPapersPage page={page} />; break;
