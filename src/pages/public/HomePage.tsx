@@ -607,7 +607,6 @@ export default function HomePage() {
         <div className="container footer-grid">
           <div className="footer-brand">
             <img src="/assets/biophlo-logo-transparent.png" alt="BIOPHLO" />
-            <p>Learn Biology. Live a Brighter Tomorrow.</p>
             <div className="social-links" aria-label="Social media">
               <a href="https://www.facebook.com" target="_blank" rel="noreferrer" aria-label="BIOPHLO on Facebook">f</a>
               <a href="https://www.instagram.com" target="_blank" rel="noreferrer" aria-label="BIOPHLO on Instagram">◎</a>
