@@ -48,7 +48,7 @@ export const studentNavigation: StudentNavGroup[] = [
     items: [
       { label: "Progress", path: "/student/progress", icon: GraduationCap, match: ["progress-results", "attempts-scores"] },
       { label: "Achievements", path: "/student/achievements", icon: Sparkles, match: ["achievements"] },
-      { label: "Certificates", path: "/student/certificates", icon: Award, match: ["certificates", "certificate-details"] },
+      { label: "Badges & rewards", path: "/student/certificates", icon: Award, match: ["badge-wallet", "badge-details"] },
     ],
   },
   {
