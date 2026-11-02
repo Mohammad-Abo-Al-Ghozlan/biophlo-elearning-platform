@@ -4,6 +4,7 @@ import {
   AlertTriangle,
   ArrowDownToLine,
   ArrowRight,
+  Award,
   BookOpen,
   Check,
   CheckCircle2,
@@ -17,6 +18,7 @@ import {
   FileCheck2,
   FileText,
   Filter,
+  Gift,
   Image as ImageIcon,
   KeyRound,
   LayoutGrid,
@@ -82,7 +84,7 @@ const contentRows: AdminRow[] = [
 
 const supportRows: AdminRow[] = [
   { id: "#2847", name: "Access issue after purchase", detail: "Aisha Khan · aisha.khan@example.com", category: "Account access", status: "Open", metric: "High", updated: "12 min ago" },
-  { id: "#2846", name: "Certificate not showing", detail: "Marco Silva · marco.s@example.com", category: "Certificates", status: "In progress", metric: "Medium", updated: "44 min ago" },
+  { id: "#2846", name: "Badge not showing", detail: "Marco Silva · marco.s@example.com", category: "Badges", status: "In progress", metric: "Medium", updated: "44 min ago" },
   { id: "#2845", name: "Question about cell module", detail: "Lina Park · lina@example.com", category: "Course content", status: "Open", metric: "Medium", updated: "1 hour ago" },
   { id: "#2844", name: "Duplicate payment", detail: "James Wu · james.w@example.com", category: "Billing", status: "Escalated", metric: "High", updated: "2 hours ago" },
   { id: "#2843", name: "Quiz would not load", detail: "Fatima Noor · fatima@example.com", category: "Technical", status: "Resolved", metric: "Low", updated: "Yesterday" },
@@ -96,9 +98,45 @@ const taxonomyRows: AdminRow[] = [
   { id: "TAX-005", name: "Human physiology", detail: "human-physiology", category: "5 linked courses", status: "Hidden", metric: "5", updated: "Sep 8, 2026" },
 ];
 
+const badgeRows: AdminRow[] = [
+  { id: "BDG-001", name: "Cell Explorer", detail: "Complete the Cell Structure course", category: "Course completion", status: "Active", metric: "842 earned", updated: "Today" },
+  { id: "BDG-002", name: "Quiz Streak", detail: "Score 80%+ on five consecutive quizzes", category: "Assessment", status: "Active", metric: "516 earned", updated: "Yesterday" },
+  { id: "BDG-003", name: "Study Momentum", detail: "Reach a seven-day learning streak", category: "Engagement", status: "Active", metric: "1,204 earned", updated: "Sep 11, 2026" },
+  { id: "BDG-004", name: "Genetics Specialist", detail: "Master all Genetics pathway outcomes", category: "Mastery", status: "Draft", metric: "0 earned", updated: "Sep 10, 2026" },
+];
+
+const studentBadgeRows: AdminRow[] = [
+  { id: "STD-10482", name: "Layla Hassan", detail: "Last badge: Cell Explorer", category: "Free course ready", status: "Eligible", metric: "8 badges", updated: "2 min ago" },
+  { id: "STD-10481", name: "Omar Farouk", detail: "Last badge: Quiz Streak", category: "2 badges to next reward", status: "In progress", metric: "6 badges", updated: "18 min ago" },
+  { id: "STD-10480", name: "Maya Chen", detail: "Last badge: Study Momentum", category: "Reward redeemed", status: "Redeemed", metric: "12 badges", updated: "1 hour ago" },
+  { id: "STD-10479", name: "Aisha Khan", detail: "Last badge: First Lesson", category: "4 badges to next reward", status: "In progress", metric: "4 badges", updated: "Yesterday" },
+];
+
+type RewardType = "Free course" | "Discount" | "Bonus resource" | "Custom reward";
+
+interface BadgeRewardRule {
+  id: string;
+  name: string;
+  requiredBadges: number;
+  rewardType: RewardType;
+  rewardValue: string;
+  description: string;
+  active: boolean;
+  repeatable: boolean;
+  redemptions: number;
+}
+
+const initialBadgeRewardRules: BadgeRewardRule[] = [
+  { id: "RWD-001", name: "Eight-badge course unlock", requiredBadges: 8, rewardType: "Free course", rewardValue: "Cell Structure and Function", description: "Automatically unlock this course when a learner earns eight badges.", active: true, repeatable: false, redemptions: 126 },
+  { id: "RWD-002", name: "Five-badge revision pack", requiredBadges: 5, rewardType: "Bonus resource", rewardValue: "Complete Biology Revision Pack", description: "Add the revision pack to the learner library after five badges.", active: true, repeatable: false, redemptions: 284 },
+  { id: "RWD-003", name: "Twelve-badge loyalty discount", requiredBadges: 12, rewardType: "Discount", rewardValue: "25% off the next course", description: "Issue a single-use discount after twelve earned badges.", active: true, repeatable: true, redemptions: 58 },
+];
+
 function initialRows(page: PageDefinition): AdminRow[] {
-  if (["users", "students", "instructors", "administrators", "cohorts", "enrollments", "issued-certificates"].includes(page.id)) return peopleRows;
-  if (["admin-courses", "articulate-packages", "prerequisites", "admin-achievements", "certificate-templates"].includes(page.id)) return courseRows;
+  if (page.id === "student-badges") return studentBadgeRows;
+  if (page.id === "admin-achievements") return badgeRows;
+  if (["users", "students", "instructors", "administrators", "cohorts", "enrollments"].includes(page.id)) return peopleRows;
+  if (["admin-courses", "articulate-packages", "prerequisites"].includes(page.id)) return courseRows;
   if (["orders-payments", "subscriptions", "refunds-cancellations"].includes(page.id)) return commerceRows;
   if (["admin-resources", "admin-past-papers", "admin-videos", "testimonials", "static-pages", "admin-faq"].includes(page.id)) return contentRows;
   if (["admin-support", "contact-inquiries", "qa-moderation", "message-moderation"].includes(page.id)) return supportRows;
@@ -108,6 +146,81 @@ function initialRows(page: PageDefinition): AdminRow[] {
 
 function PageHeading({ page, onAction, onExport }: { page: PageDefinition; onAction?: () => void; onExport?: () => void }) {
   return <header className="admin-page-heading"><div><span className="admin-kicker">{page.group}</span><h1>{page.title}</h1><p>{page.description}</p></div><div className="admin-heading-actions">{onExport ? <button type="button" className="button-secondary" onClick={onExport}><Download size={17} /> Export</button> : null}{page.primaryAction && onAction ? <button type="button" className="button-primary" onClick={onAction}><Plus size={17} /> {page.primaryAction}</button> : null}</div></header>;
+}
+
+function BadgeRewardsView({ page }: { page: PageDefinition }) {
+  const { notify } = useToast();
+  const [rules, setRules] = useLocalStorage<BadgeRewardRule[]>("biophlo-admin-badge-reward-rules", initialBadgeRewardRules);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [error, setError] = useState("");
+  const blankRule = (): BadgeRewardRule => ({ id: `RWD-${Date.now()}`, name: "", requiredBadges: 5, rewardType: "Free course", rewardValue: "Cell Structure and Function", description: "", active: true, repeatable: false, redemptions: 0 });
+  const [draft, setDraft] = useState<BadgeRewardRule>(blankRule);
+
+  const openNew = () => {
+    setEditingId(null);
+    setDraft(blankRule());
+    setError("");
+    setModalOpen(true);
+  };
+  const openEdit = (rule: BadgeRewardRule) => {
+    setEditingId(rule.id);
+    setDraft({ ...rule });
+    setError("");
+    setModalOpen(true);
+  };
+  const saveRule = (event: FormEvent) => {
+    event.preventDefault();
+    if (draft.name.trim().length < 3 || draft.requiredBadges < 1 || !draft.rewardValue.trim()) {
+      setError("Enter a rule name, at least one required badge, and a reward.");
+      return;
+    }
+    setRules((current) => editingId ? current.map((rule) => rule.id === editingId ? draft : rule) : [draft, ...current]);
+    setModalOpen(false);
+    notify({ title: editingId ? "Reward rule updated" : "Reward rule created", detail: `${draft.requiredBadges} badges unlock ${draft.rewardValue}.`, tone: "success" });
+  };
+  const removeRule = (id: string) => {
+    setRules((current) => current.filter((rule) => rule.id !== id));
+    notify({ title: "Reward rule removed", detail: "The rule was removed from this local workspace.", tone: "info" });
+  };
+  const activeRules = rules.filter((rule) => rule.active);
+  const redemptions = rules.reduce((total, rule) => total + rule.redemptions, 0);
+
+  return <>
+    <PageHeading page={page} onAction={openNew} />
+    <section className="admin-mini-metrics badge-reward-metrics" aria-label="Badge reward summary">
+      <article><span>Active reward rules</span><strong>{activeRules.length}</strong><small>Of {rules.length} configured rules</small></article>
+      <article><span>Lowest unlock threshold</span><strong>{activeRules.length ? Math.min(...activeRules.map((rule) => rule.requiredBadges)) : 0}</strong><small>Badges required</small></article>
+      <article><span>Rewards issued</span><strong>{redemptions}</strong><small>Across all active rules</small></article>
+    </section>
+    <section className="badge-reward-guide" aria-label="How badge rewards work">
+      <span><Award size={22} /><b>1</b><strong>Student earns badges</strong><small>From course, score, streak, or mastery milestones.</small></span>
+      <span><span className="badge-reward-arrow">→</span><b>2</b><strong>Threshold is reached</strong><small>The platform checks the number set by the administrator.</small></span>
+      <span><Gift size={22} /><b>3</b><strong>Reward is granted</strong><small>A free course, discount, resource, or custom benefit is unlocked.</small></span>
+    </section>
+    <section className="admin-panel badge-reward-panel">
+      <header className="admin-panel-head"><div><h2>Configured reward rules</h2><p>Each rule connects a badge threshold to an administrator-selected reward.</p></div><button className="button-secondary" type="button" onClick={openNew}><Plus size={16} /> Add rule</button></header>
+      <div className="badge-reward-list">
+        {rules.map((rule) => <article key={rule.id} className={rule.active ? "" : "is-disabled"}>
+          <div className="badge-threshold"><Award size={24} /><strong>{rule.requiredBadges}</strong><small>badges</small></div>
+          <div className="badge-reward-copy"><span>{rule.rewardType}</span><h3>{rule.name}</h3><p>{rule.description}</p><strong><Gift size={15} /> {rule.rewardValue}</strong></div>
+          <div className="badge-reward-stats"><span className={rule.active ? "status status-active" : "status status-draft"}>{rule.active ? "Active" : "Paused"}</span><small>{rule.redemptions} rewards issued</small><small>{rule.repeatable ? "Repeatable" : "One reward per learner"}</small></div>
+          <div className="badge-reward-actions"><label className="admin-switch-row compact"><span><strong>Enabled</strong></span><input type="checkbox" checked={rule.active} onChange={(event) => setRules((current) => current.map((item) => item.id === rule.id ? { ...item, active: event.target.checked } : item))} /><i /></label><button className="icon-control" type="button" onClick={() => openEdit(rule)} aria-label={`Edit ${rule.name}`}><Pencil size={16} /></button><button className="icon-control danger" type="button" onClick={() => removeRule(rule.id)} aria-label={`Remove ${rule.name}`}><Trash2 size={16} /></button></div>
+        </article>)}
+      </div>
+    </section>
+    <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editingId ? "Edit badge reward rule" : "Create badge reward rule"} description="Set the badge threshold and choose exactly what the learner receives." size="large" footer={<><button className="button-secondary" type="button" onClick={() => setModalOpen(false)}>Cancel</button><button className="button-primary" type="submit" form="badge-reward-form">Save rule</button></>}>
+      <form id="badge-reward-form" className="form-grid" onSubmit={saveRule}>
+        <label className="field span-2"><span>Rule name *</span><input className="text-input" value={draft.name} onChange={(event) => { setDraft({ ...draft, name: event.target.value }); setError(""); }} placeholder="e.g. Eight-badge course unlock" /></label>
+        <label className="field"><span>Badges required *</span><input className="text-input" type="number" min="1" max="100" value={draft.requiredBadges} onChange={(event) => setDraft({ ...draft, requiredBadges: Math.max(1, Number(event.target.value)) })} /></label>
+        <label className="field"><span>Reward type</span><select className="select-input" value={draft.rewardType} onChange={(event) => setDraft({ ...draft, rewardType: event.target.value as RewardType, rewardValue: "" })}><option>Free course</option><option>Discount</option><option>Bonus resource</option><option>Custom reward</option></select></label>
+        <label className="field span-2"><span>{draft.rewardType === "Free course" ? "Course to unlock" : draft.rewardType === "Discount" ? "Discount reward" : draft.rewardType === "Bonus resource" ? "Resource to unlock" : "Custom reward"} *</span>{draft.rewardType === "Free course" ? <select className="select-input" value={draft.rewardValue} onChange={(event) => setDraft({ ...draft, rewardValue: event.target.value })}><option value="">Choose a course…</option>{courseRows.map((course) => <option key={course.id}>{course.name}</option>)}</select> : <input className="text-input" value={draft.rewardValue} onChange={(event) => setDraft({ ...draft, rewardValue: event.target.value })} placeholder={draft.rewardType === "Discount" ? "e.g. 25% off the next course" : "Describe the learner reward"} />}</label>
+        <label className="field span-2"><span>Description</span><textarea className="text-area" value={draft.description} onChange={(event) => setDraft({ ...draft, description: event.target.value })} placeholder="Explain when and how this reward is granted." /></label>
+        <fieldset className="modal-fieldset span-2"><legend>Rule behavior</legend><label><input type="checkbox" checked={draft.active} onChange={(event) => setDraft({ ...draft, active: event.target.checked })} /> Enable this reward rule</label><label><input type="checkbox" checked={draft.repeatable} onChange={(event) => setDraft({ ...draft, repeatable: event.target.checked })} /> Allow the learner to earn it again after another threshold cycle</label></fieldset>
+        {error ? <p className="field-error span-2">{error}</p> : null}
+      </form>
+    </Modal>
+  </>;
 }
 
 function statusClass(status: string) { return `status status-${status.toLowerCase().replace(/\s+/g, "-")}`; }
@@ -129,7 +242,7 @@ function EntityForm({ page, onSaved }: { page: PageDefinition; onSaved: (row: Ad
   const [status, setStatus] = useState("Active");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
-  const people = ["users", "students", "instructors", "administrators", "cohorts"].includes(page.id);
+  const people = ["users", "students", "instructors", "administrators", "cohorts", "student-badges"].includes(page.id);
   const commerce = ["orders-payments", "subscriptions", "refunds-cancellations"].includes(page.id);
 
   const submit = (event: FormEvent) => {
@@ -308,7 +421,7 @@ function DetailView({ page }: { page: PageDefinition }) {
   const order = page.id === "order-details";
   return <>
     <PageHeading page={page} />
-    {course ? <section className="course-preview-admin"><div className="course-preview-hero"><div><span className="status status-in-review">Preview mode</span><h2>Cell Structure and Function</h2><p>Master the building blocks of life through clear, visual lessons, focused practice, and curriculum-aligned assessment.</p><div><span><BookOpen size={16} /> 8 modules</span><span><Clock3 size={16} /> 12 hours</span><span><Star size={16} /> 4.7 (260)</span></div><button className="button-primary" type="button" onClick={() => notify({ title: "Preview enrollment started", tone: "info" })}>Start course preview</button></div><img src="/assets/course-cell.webp" alt="Cell structure" /></div><div className="course-preview-content"><div><h2>What learners will achieve</h2><ul><li>Explain major cell organelles and their functions.</li><li>Compare plant, animal, and prokaryotic cells.</li><li>Apply microscopy calculations to exam questions.</li></ul><h2>Course curriculum</h2>{["Foundations of cell biology", "Cell membranes and transport", "Cell division", "Applied microscopy"].map((module,index) => <details key={module} open={index===0}><summary><span>{String(index+1).padStart(2,"0")}</span><strong>{module}</strong><small>3 lessons · 42 min</small></summary><p>Video lesson, illustrated study note, and a focused knowledge check.</p></details>)}</div><aside><strong>$39.00</strong><s>$49.00</s><p>Lifetime access · Certificate included</p><button className="button-primary" type="button">Enroll now</button><button className="button-secondary" type="button" onClick={() => notify({ title: "Preview link copied", tone: "success" })}>Copy preview link</button></aside></div></section> : order ? <OrderDetail onNotify={(title) => notify({ title, tone: "success" })} /> : <RecordDetail page={page} onNotify={(title) => notify({ title, tone: "success" })} />}
+    {course ? <section className="course-preview-admin"><div className="course-preview-hero"><div><span className="status status-in-review">Preview mode</span><h2>Cell Structure and Function</h2><p>Master the building blocks of life through clear, visual lessons, focused practice, and curriculum-aligned assessment.</p><div><span><BookOpen size={16} /> 8 modules</span><span><Clock3 size={16} /> 12 hours</span><span><Star size={16} /> 4.7 (260)</span></div><button className="button-primary" type="button" onClick={() => notify({ title: "Preview enrollment started", tone: "info" })}>Start course preview</button></div><img src="/assets/course-cell.webp" alt="Cell structure" /></div><div className="course-preview-content"><div><h2>What learners will achieve</h2><ul><li>Explain major cell organelles and their functions.</li><li>Compare plant, animal, and prokaryotic cells.</li><li>Apply microscopy calculations to exam questions.</li></ul><h2>Course curriculum</h2>{["Foundations of cell biology", "Cell membranes and transport", "Cell division", "Applied microscopy"].map((module,index) => <details key={module} open={index===0}><summary><span>{String(index+1).padStart(2,"0")}</span><strong>{module}</strong><small>3 lessons · 42 min</small></summary><p>Video lesson, illustrated study note, and a focused knowledge check.</p></details>)}</div><aside><strong>$39.00</strong><s>$49.00</s><p>Lifetime access · Achievement badge included</p><button className="button-primary" type="button">Enroll now</button><button className="button-secondary" type="button" onClick={() => notify({ title: "Preview link copied", tone: "success" })}>Copy preview link</button></aside></div></section> : order ? <OrderDetail onNotify={(title) => notify({ title, tone: "success" })} /> : <RecordDetail page={page} onNotify={(title) => notify({ title, tone: "success" })} />}
   </>;
 }
 
@@ -345,6 +458,7 @@ export function AdminPage({ page }: AdminPageProps) {
   let content;
   if (page.id === "admin-overview") content = <AdminDashboard />;
   else if (page.id === "course-editor") content = <CourseEditor />;
+  else if (page.id === "badge-rewards") content = <BadgeRewardsView page={page} />;
   else if (page.id === "package-upload") content = <PackageUploadView page={page} />;
   else if (page.id === "website-content") content = <WebsiteOverview page={page} />;
   else if (page.id === "media-library") content = <MediaView page={page} />;

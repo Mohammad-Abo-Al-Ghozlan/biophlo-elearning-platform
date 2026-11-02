@@ -38,7 +38,7 @@ interface CourseDraft {
   seatLimit: string;
   visibility: "public" | "unlisted" | "private";
   dripContent: boolean;
-  certificate: boolean;
+  completionBadge: boolean;
   prerequisites: string;
   metaTitle: string;
   metaDescription: string;
@@ -77,7 +77,7 @@ const initialDraft: CourseDraft = {
   seatLimit: "",
   visibility: "public",
   dripContent: false,
-  certificate: true,
+  completionBadge: true,
   prerequisites: "Introduction to Biology",
   metaTitle: "",
   metaDescription: "",
@@ -320,8 +320,8 @@ export function CourseEditor() {
                 <Field label="Seat limit" help="Leave blank for unlimited enrollment."><input className="text-input" type="number" min="1" value={draft.seatLimit} onChange={(event) => update("seatLimit", event.target.value)} placeholder="Unlimited" /></Field>
                 <Field label="Required prerequisite"><select className="select-input" value={draft.prerequisites} onChange={(event) => update("prerequisites", event.target.value)}><option>None</option><option>Introduction to Biology</option><option>Plant Biology Foundations</option><option>Instructor approval</option></select></Field>
               </div>
-              <div className="editor-switch-group"><SwitchField checked={draft.dripContent} onChange={(value) => update("dripContent", value)} title="Drip module access" text="Release modules gradually after enrollment." /><SwitchField checked={draft.certificate} onChange={(value) => update("certificate", value)} title="Issue a certificate" text="Learners receive a verifiable certificate after meeting completion rules." /><SwitchField checked={true} onChange={() => notify({ title: "Discussion setting updated", tone: "success" })} title="Enable course Q&A" text="Learners can ask questions within this course." /></div>
-              {draft.certificate ? <div className="certificate-rule"><strong>Certificate requirement</strong><div className="form-grid"><Field label="Minimum course completion"><div className="input-suffix"><input className="text-input" type="number" min="1" max="100" defaultValue="100" /><span>%</span></div></Field><Field label="Minimum final score"><div className="input-suffix"><input className="text-input" type="number" min="1" max="100" defaultValue="70" /><span>%</span></div></Field></div></div> : null}
+              <div className="editor-switch-group"><SwitchField checked={draft.dripContent} onChange={(value) => update("dripContent", value)} title="Drip module access" text="Release modules gradually after enrollment." /><SwitchField checked={draft.completionBadge ?? true} onChange={(value) => update("completionBadge", value)} title="Award a completion badge" text="Learners receive a badge after meeting the course completion rules." /><SwitchField checked={true} onChange={() => notify({ title: "Discussion setting updated", tone: "success" })} title="Enable course Q&A" text="Learners can ask questions within this course." /></div>
+              {(draft.completionBadge ?? true) ? <div className="badge-rule"><strong>Completion badge requirement</strong><div className="form-grid"><Field label="Badge to award"><select className="select-input" defaultValue="Cell Explorer"><option>Cell Explorer</option><option>Course Finisher</option><option>Biology Specialist</option></select></Field><Field label="Minimum course completion"><div className="input-suffix"><input className="text-input" type="number" min="1" max="100" defaultValue="100" /><span>%</span></div></Field><Field label="Minimum final score"><div className="input-suffix"><input className="text-input" type="number" min="1" max="100" defaultValue="70" /><span>%</span></div></Field></div></div> : null}
             </div>
           ) : null}
 

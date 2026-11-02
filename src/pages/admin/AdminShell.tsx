@@ -1,6 +1,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
+  Award,
   BarChart3,
   Bell,
   BookOpen,
@@ -31,6 +32,7 @@ const navigation = [
   { label: "Overview", path: "/admin", icon: Gauge },
   { label: "Users", path: "/admin/users", icon: Users },
   { label: "Courses", path: "/admin/courses", icon: BookOpen },
+  { label: "Badges & rewards", path: "/admin/badge-rewards", icon: Award },
   { label: "Enrollments", path: "/admin/enrollments", icon: Layers3 },
   { label: "Orders & payments", path: "/admin/orders", icon: ShoppingCart },
   { label: "Website content", path: "/admin/content", icon: FileText },
