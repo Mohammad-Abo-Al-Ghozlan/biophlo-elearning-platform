@@ -787,11 +787,13 @@
 .student-badge-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 13px; }
 .student-badge-card { min-height: 235px; display: flex; flex-direction: column; padding: 17px; border: 1px solid var(--student-border); border-radius: 13px; background: #fff; }
 .student-badge-card.is-locked { background: #fafcfc; }
-.student-badge-card__mark { width: 58px; height: 63px; display: grid; place-items: center; margin-bottom: 14px; background: var(--student-teal-soft); font-size: 28px; clip-path: polygon(50% 0, 92% 24%, 92% 75%, 50% 100%, 8% 75%, 8% 24%); }
-.student-badge-card__mark--amber { background: var(--student-amber-soft); }
-.student-badge-card__mark--blue { background: #e8f3fa; }
-.student-badge-card__mark--violet { background: #f1ecfa; }
-.student-badge-card.is-locked .student-badge-card__mark { background: #edf1f1; color: #91a2a8; }
+.student-badge-card__mark { position: relative; width: 78px; height: 78px; display: grid; place-items: center; margin-bottom: 12px; font-size: 0; }
+.student-badge-card__mark::before { content: ""; position: absolute; inset: 0; background: center/contain no-repeat url("/assets/badges/cell-explorer.webp"); filter: drop-shadow(0 7px 8px rgba(7,59,89,.13)); }
+.student-badge-card__mark--amber::before { background-image: url("/assets/badges/seven-day-rhythm.webp"); }
+.student-badge-card__mark--blue::before { background-image: url("/assets/badges/quiz-precision.webp"); }
+.student-badge-card__mark--violet::before { background-image: url("/assets/badges/curious-mind.webp"); }
+.student-badge-card.is-locked .student-badge-card__mark::before { opacity: .32; filter: grayscale(.82); }
+.student-badge-card.is-locked .student-badge-card__mark > svg { position: relative; z-index: 1; width: 34px; height: 34px; border: 2px solid #fff; border-radius: 50%; background: #496572; padding: 7px; color: #fff; box-shadow: 0 4px 12px rgba(7,59,89,.18); }
 .student-badge-card > div:nth-child(2) > span { color: var(--student-teal-dark); font-size: 8px; font-weight: 850; text-transform: uppercase; letter-spacing: .08em; }
 .student-badge-card h3 { margin: 5px 0; font-size: 14px; }
 .student-badge-card p { margin: 0; color: var(--student-muted); font-size: 10px; line-height: 1.5; }
@@ -810,8 +812,8 @@
 .student-next-achievement__courses b { font-size: 8.5px; }
 .student-badge-card__link { display: inline-flex; align-items: center; gap: 3px; width: fit-content; margin-top: 9px; color: var(--student-teal-dark); font-size: 9px; font-weight: 800; text-decoration: none; }
 .student-badge-wallet-hero { display: grid; grid-template-columns: auto minmax(260px,1fr) 310px; align-items: center; gap: 24px; min-height: 235px; padding: 25px; border-radius: 16px; background: var(--student-brand-b); color: #fff; }
-.student-badge-wallet-hero__mark { position: relative; width: 92px; height: 104px; display: grid; place-items: center; background: var(--student-amber); color: #6a4308; clip-path: polygon(50% 0,93% 25%,93% 73%,50% 100%,7% 73%,7% 25%); }
-.student-badge-wallet-hero__mark i { position: absolute; inset: 13px; border: 1px dashed rgba(83,52,6,.38); clip-path: inherit; }
+.student-badge-wallet-hero__mark { width: 112px; height: 112px; display: grid; place-items: center; background: center/contain no-repeat url("/assets/badges/cell-explorer.webp"); filter: drop-shadow(0 10px 12px rgba(0,0,0,.2)); }
+.student-badge-wallet-hero__mark > * { display: none; }
 .student-badge-wallet-hero h2 { margin: 0; font-size: 27px; letter-spacing: -.035em; }
 .student-badge-wallet-hero > div:nth-child(2) > p:nth-of-type(2) { max-width: 600px; margin: 6px 0 13px; color: #d0e2e5; font-size: 11px; line-height: 1.55; }
 .student-badge-wallet-hero__meta { display: flex; flex-wrap: wrap; gap: 12px; color: #c4dade; font-size: 9px; }
@@ -835,11 +837,8 @@
 .student-badge-reward-grid .student-progress-ring { --ring-size: 58px; justify-self: center; }
 .student-badge-detail-grid { display: grid; grid-template-columns: minmax(480px,1fr) 330px; gap: 16px; align-items: start; }
 .student-badge-detail-main { min-height: 500px; display: flex; align-items: center; flex-direction: column; padding: 46px; border-radius: 16px; background: linear-gradient(145deg,#f2fbfa,#fff 55%,#fff8e9); text-align: center; box-shadow: var(--student-shadow); }
-.student-badge-detail-art { position: relative; width: 150px; height: 170px; display: grid; place-items: center; margin-bottom: 24px; background: var(--student-amber); clip-path: polygon(50% 0,93% 25%,93% 73%,50% 100%,7% 73%,7% 25%); }
-.student-badge-detail-art::before { content: ""; position: absolute; inset: 16px; border: 2px dashed rgba(91,58,9,.34); clip-path: inherit; }
-.student-badge-detail-art > span { position: relative; z-index: 1; font-size: 54px; }
-.student-badge-detail-art i { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--student-aqua); }
-.student-badge-detail-art i:nth-of-type(1) { top: 22px; right: 25px; }.student-badge-detail-art i:nth-of-type(2) { bottom: 30px; left: 25px; background: #fff; }
+.student-badge-detail-art { width: 190px; height: 190px; display: grid; place-items: center; margin-bottom: 24px; background: center/contain no-repeat url("/assets/badges/cell-explorer.webp"); filter: drop-shadow(0 12px 14px rgba(7,59,89,.14)); }
+.student-badge-detail-art > * { display: none; }
 .student-badge-detail-main > .student-eyebrow { margin-top: 13px; }
 .student-badge-detail-main h2 { margin: 0; color: var(--student-ink-deep); font-size: 32px; letter-spacing: -.04em; }
 .student-badge-detail-main > p:last-of-type { max-width: 560px; margin: 8px auto 25px; color: var(--student-muted); font-size: 11px; line-height: 1.65; }
@@ -1478,7 +1477,7 @@
   .student-table-card { overflow-x: auto; }
   .student-badge-grid { grid-template-columns: 1fr 1fr; }
   .student-achievement-hero { grid-template-columns: 1fr; }
-  .student-badge-wallet-hero { grid-template-columns: 1fr; }.student-badge-wallet-hero__mark { width: 72px; height: 82px; }.student-badge-wallet-next { grid-column: auto; }.student-badge-reward-grid,.student-badge-detail-side { grid-template-columns: 1fr; }.student-badge-detail-main { min-height: 0; padding: 28px 18px; }.student-badge-detail-facts { grid-template-columns: 1fr; }.student-badge-detail-facts span { border-top: 1px solid var(--student-border); border-left: 0; }.student-badge-detail-facts span:first-child { border-top: 0; }
+  .student-badge-wallet-hero { grid-template-columns: 1fr; }.student-badge-wallet-hero__mark { width: 92px; height: 92px; }.student-badge-wallet-next { grid-column: auto; }.student-badge-reward-grid,.student-badge-detail-side { grid-template-columns: 1fr; }.student-badge-detail-main { min-height: 0; padding: 28px 18px; }.student-badge-detail-facts { grid-template-columns: 1fr; }.student-badge-detail-facts span { border-top: 1px solid var(--student-border); border-left: 0; }.student-badge-detail-facts span:first-child { border-top: 0; }
   .student-achievement-orbit { width: 100px; height: 100px; }
   .student-achievement-stats { overflow-x: auto; }
   .student-next-achievement { align-items: flex-start; flex-direction: column; }
@@ -1554,7 +1553,7 @@
   .student-resource-row { grid-template-columns: auto 1fr; }
   .student-resource-row > .student-button { grid-column: 1 / -1; width: 100%; }
   .student-badge-grid { grid-template-columns: 1fr; }
-  .student-badge-wallet-hero { padding: 19px; }.student-badge-detail-art { width: 120px; height: 138px; }.student-badge-detail-main h2 { font-size: 27px; }
+  .student-badge-wallet-hero { padding: 19px; }.student-badge-detail-art { width: 140px; height: 140px; }.student-badge-detail-main h2 { font-size: 27px; }
   .student-announcement-list__main { grid-template-columns: 1fr auto; }
   .student-announcement-list__date { display: none; }
   .student-announcement-expanded { padding-inline: 13px; }
