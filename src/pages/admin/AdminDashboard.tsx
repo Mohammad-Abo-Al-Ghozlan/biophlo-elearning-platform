@@ -17,7 +17,7 @@ const courses = [
 
 const tickets = [
   ["#2847", "Aisha Khan", "Access issue", "High", "Open", "Oct 12"],
-  ["#2846", "Marco Silva", "Certificate not showing", "Medium", "In progress", "Oct 12"],
+  ["#2846", "Marco Silva", "Badge not showing", "Medium", "In progress", "Oct 12"],
   ["#2845", "Lina Park", "Course content question", "Medium", "Open", "Oct 11"],
   ["#2844", "James Wu", "Payment issue", "High", "In progress", "Oct 11"],
   ["#2843", "Fatima Noor", "Quiz not loading", "Low", "Resolved", "Oct 10"],
