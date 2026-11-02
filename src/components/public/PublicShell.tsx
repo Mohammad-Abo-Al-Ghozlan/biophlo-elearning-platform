@@ -8,6 +8,7 @@ import {
   ShoppingBag,
   X,
 } from "lucide-react";
+import { HomeFooter } from "./HomeFooter";
 import type { PageDefinition } from "../../types";
 
 interface PublicShellProps {
@@ -127,44 +128,7 @@ export function PublicShell({ page, children, minimal = false }: PublicShellProp
 
       <main id="main-content">{children}</main>
 
-      {!minimal && (
-        <footer className="public-footer">
-          <div className="public-footer__lead page-container">
-            <div>
-              <span className="footer-mark">Biology, made memorable</span>
-              <h2>Keep your curiosity moving.</h2>
-            </div>
-            <a className="button button--orange" href="/courses">Explore all courses <ArrowRight size={17} /></a>
-          </div>
-          <div className="public-footer__grid page-container">
-            <div className="footer-brand">
-              <img src="/assets/biophlo-logo-transparent.png" alt="BIOPHLO" />
-              <p>Clear, visual biology learning built around understanding—not memorising.</p>
-              <span>© 2026 BIOPHLO. All rights reserved.</span>
-            </div>
-            <div>
-              <h3>Learn</h3>
-              <a href="/courses">Courses</a><a href="/subjects">Subjects</a><a href="/curricula">Curricula</a><a href="/pricing">Pricing</a>
-            </div>
-            <div>
-              <h3>Resources</h3>
-              <a href="/resources">Study guides</a><a href="/past-papers">Past papers</a><a href="/videos">Videos</a><a href="/verify-certificate">Verify certificate</a>
-            </div>
-            <div>
-              <h3>BIOPHLO</h3>
-              <a href="/about">About</a><a href="/instructor">Instructor</a><a href="/faq">FAQ</a><a href="/contact">Contact</a>
-            </div>
-            <div>
-              <h3>Legal</h3>
-              <a href="/legal/privacy">Privacy</a><a href="/legal/terms">Terms</a><a href="/legal/refunds">Refunds</a><a href="/legal/accessibility">Accessibility</a>
-            </div>
-          </div>
-          <div className="public-footer__bottom page-container">
-            <span>Science today. A brighter tomorrow.</span>
-            <span>English (UK) · USD</span>
-          </div>
-        </footer>
-      )}
+      <HomeFooter />
 
       <a className="floating-support" href="/support" aria-label="Open BIOPHLO support">
         <MessageCircle size={24} />
