@@ -126,6 +126,24 @@ interface BadgeRewardRule {
   redemptions: number;
 }
 
+interface BadgeDefinition {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  courseId: string;
+  courseName: string;
+  active: boolean;
+  earned: number;
+}
+
+const initialBadgeDefinitions: BadgeDefinition[] = [
+  { id: "BDG-001", name: "Cell Explorer", description: "Awarded after completing every Cell Structure and Function requirement.", image: "/assets/badges/cell-explorer.webp", courseId: "CRS-003", courseName: "Cell Structure and Function", active: true, earned: 842 },
+  { id: "BDG-002", name: "Seven-day rhythm", description: "Recognises a consistent seven-day learning rhythm.", image: "/assets/badges/seven-day-rhythm.webp", courseId: "CRS-001", courseName: "Introduction to Plant Biology", active: true, earned: 1204 },
+  { id: "BDG-003", name: "Quiz precision", description: "Awarded for scoring at least 90% on the course assessment.", image: "/assets/badges/quiz-precision.webp", courseId: "CRS-002", courseName: "Genetics and Inheritance", active: true, earned: 516 },
+  { id: "BDG-004", name: "Curious mind", description: "Recognises thoughtful questions and active participation.", image: "/assets/badges/curious-mind.webp", courseId: "CRS-004", courseName: "Ecosystems and Biodiversity", active: false, earned: 0 },
+];
+
 const initialBadgeRewardRules: BadgeRewardRule[] = [
   { id: "RWD-001", name: "Eight-badge course unlock", requiredBadges: 8, rewardType: "Free course", rewardValue: "Cell Structure and Function", description: "Automatically unlock this course when a learner earns eight badges.", active: true, repeatable: false, redemptions: 126 },
   { id: "RWD-002", name: "Five-badge revision pack", requiredBadges: 5, rewardType: "Bonus resource", rewardValue: "Complete Biology Revision Pack", description: "Add the revision pack to the learner library after five badges.", active: true, repeatable: false, redemptions: 284 },
@@ -146,6 +164,101 @@ function initialRows(page: PageDefinition): AdminRow[] {
 
 function PageHeading({ page, onAction, onExport }: { page: PageDefinition; onAction?: () => void; onExport?: () => void }) {
   return <header className="admin-page-heading"><div><span className="admin-kicker">{page.group}</span><h1>{page.title}</h1><p>{page.description}</p></div><div className="admin-heading-actions">{onExport ? <button type="button" className="button-secondary" onClick={onExport}><Download size={17} /> Export</button> : null}{page.primaryAction && onAction ? <button type="button" className="button-primary" onClick={onAction}><Plus size={17} /> {page.primaryAction}</button> : null}</div></header>;
+}
+
+function BadgeManagerView({ page }: { page: PageDefinition }) {
+  const { notify } = useToast();
+  const [items, setItems] = useLocalStorage<BadgeDefinition[]>("biophlo-admin-badge-definitions", initialBadgeDefinitions);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [error, setError] = useState("");
+  const blankBadge = (): BadgeDefinition => ({ id: `BDG-${Date.now()}`, name: "", description: "", image: "", courseId: "", courseName: "", active: true, earned: 0 });
+  const [draft, setDraft] = useState<BadgeDefinition>(blankBadge);
+
+  const openNew = () => {
+    setEditingId(null);
+    setDraft(blankBadge());
+    setError("");
+    setModalOpen(true);
+  };
+  const openEdit = (badge: BadgeDefinition) => {
+    setEditingId(badge.id);
+    setDraft({ ...badge });
+    setError("");
+    setModalOpen(true);
+  };
+  const readBadgeImage = (file?: File) => {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setError("Choose a PNG, JPG, or WebP image.");
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      setError("The image must be 2 MB or smaller for browser storage.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setDraft((current) => ({ ...current, image: reader.result as string }));
+        setError("");
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+  const chooseCourse = (courseId: string) => {
+    const course = courseRows.find((item) => item.id === courseId);
+    setDraft((current) => ({ ...current, courseId, courseName: course?.name ?? "" }));
+  };
+  const saveBadge = (event: FormEvent) => {
+    event.preventDefault();
+    if (draft.name.trim().length < 3 || !draft.image || !draft.courseId) {
+      setError("Add a badge name, import an image, and assign a course.");
+      return;
+    }
+    setItems((current) => editingId ? current.map((badge) => badge.id === editingId ? draft : badge) : [draft, ...current]);
+    setModalOpen(false);
+    notify({ title: editingId ? "Badge updated" : "Badge created", detail: `${draft.name} is assigned to ${draft.courseName}.`, tone: "success" });
+  };
+  const removeBadge = (id: string) => {
+    setItems((current) => current.filter((badge) => badge.id !== id));
+    notify({ title: "Badge removed", detail: "The local badge definition and course assignment were removed.", tone: "info" });
+  };
+
+  return <>
+    <PageHeading page={page} onAction={openNew} />
+    <section className="admin-mini-metrics badge-manager-metrics" aria-label="Badge summary">
+      <article><span>Badge designs</span><strong>{items.length}</strong><small>Image-based badge definitions</small></article>
+      <article><span>Assigned courses</span><strong>{new Set(items.map((badge) => badge.courseId).filter(Boolean)).size}</strong><small>Courses with a badge</small></article>
+      <article><span>Badges awarded</span><strong>{items.reduce((total, badge) => total + badge.earned, 0).toLocaleString()}</strong><small>Across all learners</small></article>
+    </section>
+    <section className="admin-panel badge-manager-panel">
+      <header className="admin-panel-head"><div><h2>Badge library</h2><p>Import badge artwork and assign each design to a specific course.</p></div><button className="button-secondary" type="button" onClick={openNew}><Plus size={16} /> Add badge</button></header>
+      <div className="badge-admin-grid">
+        {items.map((badge) => <article className={badge.active ? "" : "is-disabled"} key={badge.id}>
+          <div className="badge-admin-art"><img src={badge.image} alt={`${badge.name} badge`} /></div>
+          <div className="badge-admin-copy"><span>{badge.id}</span><h3>{badge.name}</h3><p>{badge.description}</p><strong><BookOpen size={14} /> {badge.courseName}</strong></div>
+          <footer><span className={badge.active ? "status status-active" : "status status-draft"}>{badge.active ? "Active" : "Paused"}</span><small>{badge.earned.toLocaleString()} earned</small><button className="icon-control" type="button" onClick={() => openEdit(badge)} aria-label={`Edit ${badge.name}`}><Pencil size={16} /></button><button className="icon-control danger" type="button" onClick={() => removeBadge(badge.id)} aria-label={`Remove ${badge.name}`}><Trash2 size={16} /></button></footer>
+        </article>)}
+      </div>
+    </section>
+    <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editingId ? "Edit badge" : "Create badge"} description="Import the badge image and choose the course that awards it." size="large" footer={<><button className="button-secondary" type="button" onClick={() => setModalOpen(false)}>Cancel</button><button className="button-primary" type="submit" form="badge-manager-form">Save badge</button></>}>
+      <form id="badge-manager-form" className="badge-manager-form" onSubmit={saveBadge}>
+        <div className="badge-image-field">
+          <div className={draft.image ? "badge-image-preview has-image" : "badge-image-preview"}>{draft.image ? <img src={draft.image} alt="Badge preview" /> : <><ImageIcon size={34} /><span>Badge preview</span></>}</div>
+          <label className="button-secondary"><CloudUpload size={16} /> Import badge image<input className="sr-only" type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => readBadgeImage(event.currentTarget.files?.[0])} /></label>
+          <small>Transparent PNG recommended. JPG, PNG, or WebP up to 2 MB.</small>
+        </div>
+        <div className="badge-manager-fields">
+          <label className="field"><span>Badge name *</span><input className="text-input" value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} placeholder="e.g. Cell Explorer" /></label>
+          <label className="field"><span>Assigned course *</span><select className="select-input" value={draft.courseId} onChange={(event) => chooseCourse(event.target.value)}><option value="">Choose a course…</option>{courseRows.map((course) => <option value={course.id} key={course.id}>{course.name}</option>)}</select></label>
+          <label className="field"><span>Description</span><textarea className="text-area" value={draft.description} onChange={(event) => setDraft({ ...draft, description: event.target.value })} placeholder="Explain how the learner earns this badge." /></label>
+          <label className="admin-switch-row compact badge-active-switch"><span><strong>Active badge</strong><small>Allow this course to award the badge.</small></span><input type="checkbox" checked={draft.active} onChange={(event) => setDraft({ ...draft, active: event.target.checked })} /><i /></label>
+          {error ? <p className="field-error">{error}</p> : null}
+        </div>
+      </form>
+    </Modal>
+  </>;
 }
 
 function BadgeRewardsView({ page }: { page: PageDefinition }) {
@@ -458,6 +571,7 @@ export function AdminPage({ page }: AdminPageProps) {
   let content;
   if (page.id === "admin-overview") content = <AdminDashboard />;
   else if (page.id === "course-editor") content = <CourseEditor />;
+  else if (page.id === "admin-achievements") content = <BadgeManagerView page={page} />;
   else if (page.id === "badge-rewards") content = <BadgeRewardsView page={page} />;
   else if (page.id === "package-upload") content = <PackageUploadView page={page} />;
   else if (page.id === "website-content") content = <WebsiteOverview page={page} />;
